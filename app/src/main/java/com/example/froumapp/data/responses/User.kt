@@ -1,4 +1,4 @@
-package com.example.froumapp.responses
+package com.example.froumapp.data.responses
 
 data class User(
     val _id: String,
@@ -11,6 +11,7 @@ data class User(
     val lastname: String,
     val password: String,
     val rank: String,
+    val signature: String?,
     val reputation: Int,
     val threadsFollowed: List<Any>,
     val updatedAt: String,

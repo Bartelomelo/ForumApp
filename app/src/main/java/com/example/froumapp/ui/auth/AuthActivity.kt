@@ -1,4 +1,4 @@
-package com.example.froumapp.auth
+package com.example.froumapp.ui.auth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

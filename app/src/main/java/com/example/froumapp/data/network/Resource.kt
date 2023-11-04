@@ -1,4 +1,4 @@
-package com.example.froumapp.network
+package com.example.froumapp.data.network
 
 import okhttp3.ResponseBody
 

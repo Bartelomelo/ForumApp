@@ -1,4 +1,4 @@
-package com.example.froumapp.auth
+package com.example.froumapp.ui.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".profileFragment">
+    tools:context=".ui.forum.profile.ProfileFragment">
 
     <TextView
         android:id="@+id/example"
@@ -16,6 +16,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Profile"
         android:textSize="24sp"/>
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/logout_red"
+        android:text="Wyloguj"
+        app:layout_constraintTop_toBottomOf="@id/example"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.froumapp.responses
+package com.example.froumapp.data.responses
 
 data class LoginResponse(
     val token: String,
