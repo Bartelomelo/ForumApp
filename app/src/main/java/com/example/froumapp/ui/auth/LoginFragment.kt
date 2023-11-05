@@ -27,7 +27,7 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
             when (it) {
                 is Resource.Success -> {
                     lifecycleScope.launch {
-                        viewModel.saveAuthToken(it.value.token)
+                        viewModel.saveUserCredentials(it.value.token, it.value.user._id)
                     }
                     requireActivity().startNewActivity(ForumActivity::class.java)
                 }

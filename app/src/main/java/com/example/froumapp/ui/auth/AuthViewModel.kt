@@ -25,8 +25,8 @@ class AuthViewModel(
         _loginResponse.value = repository.login(userName, password)
     }
 
-    suspend fun saveAuthToken(token: String) {
-        repository.saveAuthToken(token)
+    suspend fun saveUserCredentials(token: String, userId: String) {
+        repository.saveUserCredentials(token, userId)
     }
 
 

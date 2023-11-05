@@ -11,5 +11,9 @@
         <item name="android:color">@color/white</item>
     </style>
 
+    <style name="ProfilePicture" parent="">
+        <item name="cornerSize">20dp</item>
+    </style>
+
     <style name="Theme.FroumApp" parent="Base.Theme.FroumApp" />
 </resources>

@@ -1,6 +1,7 @@
 package com.example.froumapp.data
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
@@ -15,6 +16,7 @@ class UserPreferences(
 ) {
     companion object {
         private val KEY_AUTH = stringPreferencesKey("key_auth")
+        private val USER_ID = stringPreferencesKey("user_id")
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "ForumAppDataStore")
     }
 
@@ -25,14 +27,20 @@ class UserPreferences(
         get() = applicationContext.dataStore.data.map {preferences ->
             preferences[KEY_AUTH]
         }
+    val userId: Flow<String?> = applicationContext.dataStore.data.map { preferences ->
+            preferences[USER_ID]
+        }
 
-    suspend fun saveAuthToken(authToken: String) {
+
+    suspend fun saveUserCredentials(authToken: String, userId: String) {
         applicationContext.dataStore.edit { preferences ->
             preferences[KEY_AUTH] = authToken
+            preferences[USER_ID] = userId
         }
     }
 
-    suspend fun removeToken() {
+
+    suspend fun removeUserCredentials() {
         applicationContext.dataStore.edit { preferences ->
             preferences.clear()
         }
