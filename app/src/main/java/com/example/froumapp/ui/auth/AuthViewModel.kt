@@ -8,9 +8,11 @@ import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.repository.AuthRepository
 import com.example.froumapp.data.responses.LoginResponse
 import com.example.froumapp.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-
-class AuthViewModel(
+import javax.inject.Inject
+@HiltViewModel
+class AuthViewModel @Inject constructor(
     private val repository: AuthRepository
 ): BaseViewModel(repository) {
 

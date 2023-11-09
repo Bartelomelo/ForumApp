@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.froumapp.R
@@ -17,9 +18,13 @@ import com.example.froumapp.ui.base.BaseFragment
 import com.example.froumapp.ui.forum.ForumActivity
 import com.example.froumapp.ui.handleApiError
 import com.example.froumapp.ui.startNewActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
+@AndroidEntryPoint
+class LoginFragment : BaseFragment<FragmentLoginBinding, AuthRepository>() {
+
+    private val viewModel: AuthViewModel by viewModels()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -44,7 +49,7 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
         }
     }
 
-    override fun getViewModel(): Class<AuthViewModel> = AuthViewModel::class.java
+//    override fun getViewModel(): Class<AuthViewModel> = AuthViewModel::class.java
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

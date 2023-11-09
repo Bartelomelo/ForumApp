@@ -11,9 +11,12 @@ import com.example.froumapp.data.repository.ProfileRepository
 import com.example.froumapp.data.responses.LoginResponse
 import com.example.froumapp.data.responses.User
 import com.example.froumapp.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel(
+@HiltViewModel
+class ProfileViewModel @Inject constructor(
     private val repository: ProfileRepository
 ): BaseViewModel(repository) {
 

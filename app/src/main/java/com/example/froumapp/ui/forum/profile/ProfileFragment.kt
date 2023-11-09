@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.froumapp.R
@@ -13,9 +14,11 @@ import com.example.froumapp.data.network.UserApi
 import com.example.froumapp.data.repository.ProfileRepository
 import com.example.froumapp.data.responses.User
 import com.example.froumapp.databinding.FragmentProfileBinding
+import com.example.froumapp.ui.auth.AuthViewModel
 import com.example.froumapp.ui.base.BaseFragment
 import com.example.froumapp.ui.handleApiError
 import com.example.froumapp.ui.snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
@@ -23,8 +26,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
+class ProfileFragment : BaseFragment<FragmentProfileBinding, ProfileRepository>() {
 
-class ProfileFragment : BaseFragment<ProfileViewModel, FragmentProfileBinding, ProfileRepository>() {
+    private val viewModel: ProfileViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,7 +56,7 @@ class ProfileFragment : BaseFragment<ProfileViewModel, FragmentProfileBinding, P
         binding.userSignature.text = user.signature
     }
 
-    override fun getViewModel() = ProfileViewModel::class.java
+//    override fun getViewModel() = ProfileViewModel::class.java
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,

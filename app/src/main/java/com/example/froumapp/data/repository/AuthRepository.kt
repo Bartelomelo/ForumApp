@@ -2,8 +2,9 @@ package com.example.froumapp.data.repository
 
 import com.example.froumapp.data.UserPreferences
 import com.example.froumapp.data.network.AuthApi
+import javax.inject.Inject
 
-class AuthRepository(
+class AuthRepository @Inject constructor(
     private val api: AuthApi,
     private val preferences: UserPreferences
 ) : BaseRepository() {

@@ -8,11 +8,13 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class UserPreferences(
-    context: Context
+class UserPreferences @Inject constructor(
+    @ApplicationContext context: Context
 ) {
     companion object {
         private val KEY_AUTH = stringPreferencesKey("key_auth")
