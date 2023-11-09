@@ -12,6 +12,7 @@ data class User(
     val password: String,
     val rank: String,
     val signature: String?,
+    val about: String?,
     val reputation: Int,
     val threadsFollowed: List<Any>,
     val updatedAt: String,

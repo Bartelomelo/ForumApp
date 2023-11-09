@@ -1,13 +1,11 @@
 package com.example.froumapp.di
 
-import android.content.Context
 import com.example.froumapp.data.network.AuthApi
 import com.example.froumapp.data.network.RemoteDataSource
 import com.example.froumapp.data.network.UserApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 @Module

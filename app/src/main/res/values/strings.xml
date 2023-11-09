@@ -4,4 +4,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Wyloguj</string>
     <string name="image_desc">zdjecie profilu</string>
+    <string name="settings_button">Settings button</string>
+    <string name="type_new_nick">Podaj nowy nick</string>
+    <string name="type_email">Podaj email</string>
+    <string name="type_about_you">Napisz coś o sobie</string>
+    <string name="type_signature">Napisz czym jeździsz :)</string>
+    <string name="update">Aktualizuj</string>
+    <string name="update_profile">Aktualizacja profilu</string>
 </resources>

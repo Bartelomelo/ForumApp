@@ -1,17 +1,14 @@
 package com.example.froumapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.froumapp.data.UserPreferences
 import com.example.froumapp.ui.auth.AuthActivity
 import com.example.froumapp.ui.forum.ForumActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

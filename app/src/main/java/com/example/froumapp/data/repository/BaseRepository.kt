@@ -1,7 +1,7 @@
 package com.example.froumapp.data.repository
 
+import android.util.Log
 import com.example.froumapp.data.network.Resource
-import com.example.froumapp.data.network.UserApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -21,15 +21,12 @@ abstract class BaseRepository {
                     }
 
                     else -> {
+                        Log.d("throwable", throwable.toString())
                         Resource.Failure(true, null, null)
                     }
                 }
             }
         }
-    }
-
-    suspend fun logout(api: UserApi) = safeApiCall {
-        api.logout()
     }
 
 }

@@ -40,7 +40,7 @@ fun Fragment.handleApiError(
             if (this is LoginFragment) {
                 requireView().snackbar("Wprowadzono błędne dane logowania.")
             } else {
-                (this as BaseFragment<*,*>).logout()
+                (this as BaseFragment<*>).logout()
             }
         }
 
