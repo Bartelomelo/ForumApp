@@ -1,6 +1,7 @@
 package com.example.froumapp.di
 
 import com.example.froumapp.data.network.AuthApi
+import com.example.froumapp.data.network.ThreadApi
 import com.example.froumapp.data.network.RemoteDataSource
 import com.example.froumapp.data.network.UserApi
 import dagger.Module
@@ -23,5 +24,12 @@ object AppModule {
         remoteDataSource: RemoteDataSource
     ): UserApi {
         return remoteDataSource.buildApi(UserApi::class.java, null, null)
+    }
+
+    @Provides
+    fun provideHomeApi(
+        remoteDataSource:  RemoteDataSource
+    ): ThreadApi {
+        return remoteDataSource.buildApi(ThreadApi::class.java, null, null)
     }
 }

@@ -22,7 +22,7 @@ import javax.inject.Inject
 abstract class BaseFragment<B : ViewBinding> : Fragment() {
     @Inject
     protected lateinit var userPreferences: UserPreferences
-    protected lateinit var binding: B
+    protected open lateinit var binding: B
     protected val remoteDataSource = RemoteDataSource()
 
     @get:JvmName("functionOfKotlin")
@@ -35,12 +35,12 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = getFragmentBinding(inflater, container)
+
         if (activity is ForumActivity) {
             bottomBar = (activity as ForumActivity).findViewById(R.id.bottomNavigationView)
             enableBottomBar()
         }
-
-        binding = getFragmentBinding(inflater, container)
 
         lifecycleScope.launch {
             token = userPreferences.authToken.first()

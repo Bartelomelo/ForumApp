@@ -2,8 +2,10 @@ package com.example.froumapp.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Rect
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.froumapp.data.network.Resource
 import com.example.froumapp.ui.auth.LoginFragment
 import com.example.froumapp.ui.base.BaseFragment
@@ -50,4 +52,19 @@ fun Fragment.handleApiError(
         }
     }
 
+}
+
+class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(
+        outRect: Rect, view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        with(outRect) {
+            if (parent.getChildAdapterPosition(view) == 0) {
+                top = spaceSize
+            }
+            bottom = spaceSize
+        }
+    }
 }

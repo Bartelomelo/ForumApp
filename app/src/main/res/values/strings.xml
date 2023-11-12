@@ -11,4 +11,9 @@
     <string name="type_signature">Napisz czym jeździsz :)</string>
     <string name="update">Aktualizuj</string>
     <string name="update_profile">Aktualizacja profilu</string>
+    <string name="type_password">Podaj hasło</string>
+    <string name="type_login">Podaj nazwę użytkownika</string>
+    <string name="login">Logowanie</string>
+    <string name="login_button_text">Zaloguj</string>
+    <string name="add_button">Add button</string>
 </resources>

@@ -5,4 +5,5 @@
     <color name="logout_red">#E91E63</color>
     <color name="appColor">#0797FF</color>
     <color name="textAboutColor">#114468</color>
+    <color name="threadBackgroundColor">#E6E6E6</color>
 </resources>
