@@ -20,7 +20,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private val viewModel: ProfileViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.getUser(userId!!)
         viewModel.user.observe(viewLifecycleOwner, Observer {
             when(it) {

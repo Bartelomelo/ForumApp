@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         userPreferences.authToken.asLiveData().observe(this, Observer {
             val activity = if(it == null) AuthActivity::class.java else ForumActivity::class.java
             startActivity(Intent(this, activity))
-            Toast.makeText(this, it ?: "Token is null.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, it ?: "Token is null.", Toast.LENGTH_SHORT).show()
         })
 
     }

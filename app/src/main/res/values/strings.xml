@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FroumApp</string>
+    <string name="app_name">ForumApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Wyloguj</string>
@@ -16,4 +16,8 @@
     <string name="login">Logowanie</string>
     <string name="login_button_text">Zaloguj</string>
     <string name="add_button">Add button</string>
+    <string name="answers_text">Odpowiedzi:</string>
+    <string name="back_button">back button</string>
+    <string name="thread">Thread</string>
+    <string name="direction_home">Home</string>
 </resources>

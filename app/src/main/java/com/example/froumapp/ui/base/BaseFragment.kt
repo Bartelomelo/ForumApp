@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.example.froumapp.R
@@ -12,6 +14,7 @@ import com.example.froumapp.data.UserPreferences
 import com.example.froumapp.data.network.RemoteDataSource
 import com.example.froumapp.ui.auth.AuthActivity
 import com.example.froumapp.ui.forum.ForumActivity
+import com.example.froumapp.ui.forum.home.HomeFragment
 import com.example.froumapp.ui.startNewActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.flow.first
@@ -29,6 +32,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     protected var userId: String? = null
     protected var token: String? = null
     private var bottomBar: BottomNavigationView? = null
+    private var toolBar: Toolbar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +53,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         return binding.root
     }
 
-    private fun enableBottomBar() {
+    fun enableBottomBar() {
         bottomBar!!.visibility = View.VISIBLE
     }
 

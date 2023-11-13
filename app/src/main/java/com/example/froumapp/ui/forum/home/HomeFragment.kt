@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.froumapp.R
 import com.example.froumapp.data.network.Resource
@@ -45,7 +46,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun updateUI(threadResponse: ThreadResponse) {
-        adapter = ThreadListAdapter {  }
+        adapter = ThreadListAdapter {
+            val action = HomeFragmentDirections.actionHomeFragmentToThreadFragment(it._id)
+            findNavController().navigate(action)
+        }
         binding.recyclerView.adapter = adapter
         adapter.submitList(threadResponse)
         binding.recyclerView.layoutManager = LinearLayoutManager(this.requireContext())

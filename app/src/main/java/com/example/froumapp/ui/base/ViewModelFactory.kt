@@ -6,9 +6,11 @@ import com.example.froumapp.data.repository.AuthRepository
 import com.example.froumapp.data.repository.BaseRepository
 import com.example.froumapp.data.repository.HomeRepository
 import com.example.froumapp.data.repository.ProfileRepository
+import com.example.froumapp.data.repository.ThreadRepository
 import com.example.froumapp.ui.auth.AuthViewModel
 import com.example.froumapp.ui.forum.home.HomeViewModel
 import com.example.froumapp.ui.forum.profile.ProfileViewModel
+import com.example.froumapp.ui.forum.thread.ThreadViewModel
 import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
@@ -20,6 +22,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel(repository as AuthRepository) as T
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> ProfileViewModel(repository as ProfileRepository) as T
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(repository as HomeRepository) as T
+            modelClass.isAssignableFrom(ThreadViewModel::class.java) -> ThreadViewModel(repository as ThreadRepository) as T
             else -> throw IllegalArgumentException("ViewModelClass not found.")
         }
     }

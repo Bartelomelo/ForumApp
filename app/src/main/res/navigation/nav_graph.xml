@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.froumapp.ui.forum.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_threadFragment"
+            app:destination="@id/threadFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.example.froumapp.ui.forum.CategoriesFragment"
@@ -49,5 +53,17 @@
             app:destination="@id/profileFragment"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/threadFragment"
+        android:name="com.example.froumapp.ui.forum.thread.ThreadFragment"
+        android:label="fragment_thread"
+        tools:layout="@layout/fragment_thread" >
+        <argument
+            android:name="thradId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_threadFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
