@@ -32,16 +32,13 @@ class ThreadFragment() : BaseFragment<FragmentThreadBinding>() {
         disableBottomBar()
         viewModel.getThreadById(args.thradId)
         viewModel.threadResponseItem.observe(this.viewLifecycleOwner) {
-            when(it){
+            when (it) {
                 is Resource.Success -> {
                     updateUI(it.value)
                 }
+
                 is Resource.Failure -> handleApiError(it)
             }
-        }
-        binding.backButton.setOnClickListener {
-            findNavController().navigate(ThreadFragmentDirections.actionThreadFragmentToHomeFragment())
-            enableBottomBar()
         }
 
     }

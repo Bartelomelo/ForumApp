@@ -22,24 +22,17 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: ThreadListAdapter
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLastThreads()
-        viewModel.threadResponse.observe(viewLifecycleOwner){
-            when(it){
+        viewModel.threadResponse.observe(viewLifecycleOwner) {
+            when (it) {
                 is Resource.Success -> {
                     updateUI(it.value)
                     Log.d("Success for Home", it.value.toString())
                 }
+
                 is Resource.Failure -> handleApiError(it)
             }
         }
