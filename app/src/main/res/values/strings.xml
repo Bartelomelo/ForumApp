@@ -20,4 +20,8 @@
     <string name="back_button">back button</string>
     <string name="thread">Thread</string>
     <string name="direction_home">Home</string>
+    <string name="reply_button">reply button</string>
+    <string name="type_post">Napisz komentarz</string>
+    <string name="post_title">Twój Komentarz</string>
+    <string name="add_post">dodaj Komentarz</string>
 </resources>

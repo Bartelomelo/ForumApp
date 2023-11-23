@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.froumapp.R
 import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.responses.ThreadResponseItem
 import com.example.froumapp.databinding.FragmentThreadBinding
@@ -20,11 +21,12 @@ import com.example.froumapp.ui.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ThreadFragment() : BaseFragment<FragmentThreadBinding>() {
+class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
 
     private val viewModel: ThreadViewModel by viewModels()
     private val args: ThreadFragmentArgs by navArgs()
     private lateinit var adapter: PostListAdapter
+    private lateinit var thread: ThreadResponseItem
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,10 +37,15 @@ class ThreadFragment() : BaseFragment<FragmentThreadBinding>() {
             when (it) {
                 is Resource.Success -> {
                     updateUI(it.value)
+                    thread = it.value
                 }
 
                 is Resource.Failure -> handleApiError(it)
             }
+        }
+        binding.replyButton.setOnClickListener {
+            val action = ThreadFragmentDirections.actionThreadFragmentToPostFragment(thread._id)
+            findNavController().navigate(action)
         }
 
     }

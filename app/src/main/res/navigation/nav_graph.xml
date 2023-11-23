@@ -16,9 +16,13 @@
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.example.froumapp.ui.forum.CategoriesFragment"
+        android:name="com.example.froumapp.ui.forum.categories.CategoriesFragment"
         android:label="fragment_categories"
-        tools:layout="@layout/fragment_categories" />
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_categoriesFragment_to_forumFragment"
+            app:destination="@id/forumFragment" />
+    </fragment>
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.example.froumapp.ui.forum.MessagesFragment"
@@ -65,5 +69,28 @@
         <action
             android:id="@+id/action_threadFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_threadFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.froumapp.ui.forum.thread.post.PostFragment"
+        android:label="PostFragment" >
+        <argument
+            android:name="threadId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_postFragment_to_threadFragment"
+            app:destination="@id/threadFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forumFragment"
+        android:name="com.example.froumapp.ui.forum.categories.forum.ForumFragment"
+        android:label="fragment_forum"
+        tools:layout="@layout/fragment_forum" >
+        <argument
+            android:name="forumId"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -1,6 +1,8 @@
 package com.example.froumapp.di
 
 import com.example.froumapp.data.network.AuthApi
+import com.example.froumapp.data.network.CategoryApi
+import com.example.froumapp.data.network.PostApi
 import com.example.froumapp.data.network.ThreadApi
 import com.example.froumapp.data.network.RemoteDataSource
 import com.example.froumapp.data.network.UserApi
@@ -31,5 +33,19 @@ object AppModule {
         remoteDataSource:  RemoteDataSource
     ): ThreadApi {
         return remoteDataSource.buildApi(ThreadApi::class.java, null, null)
+    }
+
+    @Provides
+    fun providePostApi(
+        remoteDataSource: RemoteDataSource
+    ): PostApi {
+        return remoteDataSource.buildApi(PostApi::class.java, null, null)
+    }
+
+    @Provides
+    fun provideCategoryApi(
+        remoteDataSource: RemoteDataSource
+    ): CategoryApi {
+        return remoteDataSource.buildApi(CategoryApi::class.java, null, null)
     }
 }

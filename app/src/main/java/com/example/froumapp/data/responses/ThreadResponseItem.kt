@@ -1,5 +1,9 @@
 package com.example.froumapp.data.responses
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
+
 data class ThreadResponseItem(
     val __v: Int,
     val _id: String,
