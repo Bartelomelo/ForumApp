@@ -5,12 +5,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.froumapp.data.repository.AuthRepository
 import com.example.froumapp.data.repository.BaseRepository
 import com.example.froumapp.data.repository.CategoryRepository
+import com.example.froumapp.data.repository.ForumRepository
 import com.example.froumapp.data.repository.HomeRepository
 import com.example.froumapp.data.repository.PostRepository
 import com.example.froumapp.data.repository.ProfileRepository
+import com.example.froumapp.data.repository.ThreadForumRepository
 import com.example.froumapp.data.repository.ThreadRepository
 import com.example.froumapp.ui.auth.AuthViewModel
 import com.example.froumapp.ui.forum.categories.CategoriesViewModel
+import com.example.froumapp.ui.forum.categories.forums.ForumViewModel
+import com.example.froumapp.ui.forum.categories.forums.threads.ForumThreadViewModel
 import com.example.froumapp.ui.forum.home.HomeViewModel
 import com.example.froumapp.ui.forum.profile.ProfileViewModel
 import com.example.froumapp.ui.forum.thread.ThreadViewModel
@@ -29,6 +33,8 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(ThreadViewModel::class.java) -> ThreadViewModel(repository as ThreadRepository) as T
             modelClass.isAssignableFrom(PostViewModel::class.java) -> PostViewModel(repository as PostRepository) as T
             modelClass.isAssignableFrom(CategoriesViewModel::class.java) -> CategoriesViewModel(repository as CategoryRepository) as T
+            modelClass.isAssignableFrom(ForumViewModel::class.java) -> ForumViewModel(repository as ForumRepository) as T
+            modelClass.isAssignableFrom(ForumThreadViewModel::class.java) -> ForumThreadViewModel(repository as ThreadForumRepository) as T
             else -> throw IllegalArgumentException("ViewModelClass not found.")
         }
     }

@@ -13,7 +13,7 @@
         android:layout_height="40dp">
 
         <TextView
-            android:id="@+id/category_name"
+            android:id="@+id/forum_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -21,7 +21,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Mechanika" />
+            tools:text="Silnik" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

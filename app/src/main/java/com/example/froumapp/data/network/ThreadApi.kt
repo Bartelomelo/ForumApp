@@ -11,5 +11,8 @@ interface ThreadApi {
     suspend fun getLastThreads(): ThreadResponse
 
     @GET("thread/{threadId}")
-    suspend fun getThreadById(@Path("threadId")threadId: String): ThreadResponseItem
+    suspend fun getThreadById(@Path("threadId") threadId: String): ThreadResponseItem
+
+    @GET("thread/forumId/{forumId}")
+    suspend fun getThreadsByForumId(@Path("forumId") forumId: String): ThreadResponse
 }

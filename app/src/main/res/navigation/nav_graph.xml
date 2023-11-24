@@ -86,9 +86,21 @@
     </fragment>
     <fragment
         android:id="@+id/forumFragment"
-        android:name="com.example.froumapp.ui.forum.categories.forum.ForumFragment"
+        android:name="com.example.froumapp.ui.forum.categories.forums.ForumFragment"
         android:label="fragment_forum"
         tools:layout="@layout/fragment_forum" >
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_forumFragment_to_forumThreadFragment"
+            app:destination="@id/forumThreadFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forumThreadFragment"
+        android:name="com.example.froumapp.ui.forum.categories.forums.threads.ForumThreadFragment"
+        android:label="fragment_forum_thread"
+        tools:layout="@layout/fragment_forum_thread" >
         <argument
             android:name="forumId"
             app:argType="string" />
