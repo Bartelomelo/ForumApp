@@ -5,6 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ForumApi {
-    @GET("forum/{id}")
+    @GET("forum/categoryId/{id}")
     suspend fun getForums(@Path("id") categoryId: String): ForumResponse
 }

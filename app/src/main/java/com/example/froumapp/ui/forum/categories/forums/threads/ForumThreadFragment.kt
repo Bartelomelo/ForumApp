@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.froumapp.data.network.Resource
+import com.example.froumapp.data.responses.Forum
 import com.example.froumapp.data.responses.ThreadResponse
 import com.example.froumapp.databinding.FragmentForumThreadBinding
 import com.example.froumapp.ui.MarginItemDecoration
@@ -42,8 +44,8 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
 
     private fun updateUI(threadResponse: ThreadResponse) {
         adapter = ThreadListAdapter {
-//            val action = HomeFragmentDirections.actionHomeFragmentToThreadFragment(it._id)
-//            findNavController().navigate(action)
+            val action = ForumThreadFragmentDirections.actionForumThreadFragmentToThreadFragment(it._id)
+            findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter
         adapter.submitList(threadResponse)

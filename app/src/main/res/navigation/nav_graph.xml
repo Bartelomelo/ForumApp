@@ -104,5 +104,8 @@
         <argument
             android:name="forumId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_forumThreadFragment_to_threadFragment"
+            app:destination="@id/threadFragment" />
     </fragment>
 </navigation>
