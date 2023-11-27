@@ -66,6 +66,26 @@
                         tools:ignore="RtlHardcoded"
                         tools:text="bartelomelo" />
 
+                    <ImageButton
+                        android:id="@+id/follow_button"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/baseline_follow"
+                        android:background="@null"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:contentDescription="follow button" />
+
+                    <ImageButton
+                        android:id="@+id/unfollow_button"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/baseline_unfollow"
+                        android:background="@null"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:contentDescription="follow button" />
+
 
                     <TextView
                         android:id="@+id/thread_title"

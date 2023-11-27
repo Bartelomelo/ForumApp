@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="logout_red">#E91E63</color>
+    <color name="follow_green">#4DDD82</color>
     <color name="appColor">#0797FF</color>
     <color name="textAboutColor">#114468</color>
     <color name="threadBackgroundColor">#E6E6E6</color>

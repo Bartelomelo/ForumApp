@@ -10,6 +10,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface UserApi {
+
     @GET("user/{userId}")
     suspend fun getUser(@Path("userId") userId: String): User
 

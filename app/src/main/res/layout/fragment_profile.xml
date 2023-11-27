@@ -31,6 +31,7 @@
     tools:text="Bartelomelo"
     android:textSize="24sp"/>
 
+
     <TextView
         android:id="@+id/user_signature"
         android:layout_width="wrap_content"
@@ -44,6 +45,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Aprilia RS"
         android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/follow_button"
+        android:layout_width="130dp"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/follow_green"
+        android:text="@string/obserwuj"
+        android:visibility="gone"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintTop_toBottomOf="@id/user_signature"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/unfollow_button"
+        android:layout_width="130dp"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/logout_red"
+        android:text="@string/unfollow"
+        android:visibility="gone"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintTop_toBottomOf="@id/user_signature"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/about_user"

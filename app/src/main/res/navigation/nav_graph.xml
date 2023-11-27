@@ -43,6 +43,11 @@
             app:destination="@id/userSettingsFragment3"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="userId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='empty' />
     </fragment>
     <fragment
         android:id="@+id/userSettingsFragment3"
@@ -72,6 +77,9 @@
         <action
             android:id="@+id/action_threadFragment_to_postFragment"
             app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_threadFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"

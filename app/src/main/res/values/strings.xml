@@ -24,4 +24,6 @@
     <string name="type_post">Napisz komentarz</string>
     <string name="post_title">Twój Komentarz</string>
     <string name="add_post">dodaj Komentarz</string>
+    <string name="obserwuj">Obserwuj</string>
+    <string name="unfollow">Przestań obserwować</string>
 </resources>
