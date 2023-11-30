@@ -35,6 +35,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
                 is Resource.Failure -> handleApiError(it)
             }
+            val action = HomeFragmentDirections.actionHomeFragmentToThreadFragment("655918520bb30174ce44a198")
+            setNavigationDestination(action)
         }
     }
 

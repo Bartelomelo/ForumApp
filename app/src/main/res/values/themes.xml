@@ -2,13 +2,21 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.FroumApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/appBackgroundColor</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/appColor</item>
+        <item name="colorPrimaryDark">@color/logout_red</item>
+        <item name="colorAccent">@color/follow_green</item>
     </style>
 
     <style name="Remove.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:width">0dp</item>
-        <item name="android:height">0dp</item>
-        <item name="android:color">@color/white</item>
+        <item name="android:color">@color/transparent</item>
+    </style>
+
+    <style name="TintedNavigation" parent="Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="tint">@color/white</item>
     </style>
 
     <style name="ProfilePicture" parent="">
