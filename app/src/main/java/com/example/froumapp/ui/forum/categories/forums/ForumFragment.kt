@@ -25,6 +25,8 @@ class ForumFragment : BaseFragment<FragmentForumBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setFragmentTitle(args.categoryName)
+        setNavigationDestination(ForumFragmentDirections.actionForumFragmentToCategoriesFragment())
         viewModel.getForums(args.categoryId)
         viewModel.forumResponse.observe(viewLifecycleOwner) {
             when (it) {
@@ -38,7 +40,7 @@ class ForumFragment : BaseFragment<FragmentForumBinding>() {
 
     private fun updateUI(forumResponse: ForumResponse) {
         adapter = ForumListAdapter {
-            val action = ForumFragmentDirections.actionForumFragmentToForumThreadFragment(it._id)
+            val action = ForumFragmentDirections.actionForumFragmentToForumThreadFragment(it._id, it.name, args.categoryId, args.categoryName)
             findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter

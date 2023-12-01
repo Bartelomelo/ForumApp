@@ -38,6 +38,19 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         disableBottomBar()
+        setFragmentTitle("Thread")
+        if (args.isFromCategory) {
+            setNavigationDestination(
+                ThreadFragmentDirections.actionThreadFragmentToForumThreadFragment(
+                    args.forumId!!,
+                    args.forumName!!,
+                    args.categoryId!!,
+                    args.categoryName!!
+                )
+            )
+        } else {
+            setNavigationDestination(ThreadFragmentDirections.actionThreadFragmentToHomeFragment())
+        }
         viewModel.getThreadById(args.thradId)
         viewModel.threadResponseItem.observe(this.viewLifecycleOwner) {
             when (it) {
@@ -78,7 +91,15 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
         binding.threadProfilePicture.setOnClickListener {
             Log.d("authorId", thread.author._id)
             val action =
-                ThreadFragmentDirections.actionThreadFragmentToProfileFragment(thread.author._id)
+                ThreadFragmentDirections.actionThreadFragmentToProfileFragment(
+                    thread.author._id,
+                    thread._id,
+                    args.isFromCategory,
+                    args.forumId,
+                    args.forumName,
+                    args.categoryId,
+                    args.categoryName
+                )
             findNavController().navigate(action)
         }
         binding.replyButton.setOnClickListener {

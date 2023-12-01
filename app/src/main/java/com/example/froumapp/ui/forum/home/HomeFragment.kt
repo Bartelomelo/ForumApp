@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.froumapp.R
 import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.responses.ThreadResponse
 import com.example.froumapp.databinding.FragmentHomeBinding
@@ -25,6 +24,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        disableBackButton()
+        setFragmentTitle("Home")
         viewModel.getLastThreads()
         viewModel.threadResponse.observe(viewLifecycleOwner) {
             when (it) {
@@ -35,14 +36,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
                 is Resource.Failure -> handleApiError(it)
             }
-            val action = HomeFragmentDirections.actionHomeFragmentToThreadFragment("655918520bb30174ce44a198")
-            setNavigationDestination(action)
         }
     }
 
     private fun updateUI(threadResponse: ThreadResponse) {
         adapter = ThreadListAdapter {
-            val action = HomeFragmentDirections.actionHomeFragmentToThreadFragment(it._id)
+            val action = HomeFragmentDirections.actionHomeFragmentToThreadFragment(
+                it._id,
+                false,
+                null,
+                null,
+                null,
+                null
+            )
             findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter

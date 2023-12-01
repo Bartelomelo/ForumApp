@@ -25,12 +25,20 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         disableBottomBar()
+        setFragmentTitle("Ustawienia")
+        setNavigationDestination(
+            UserSettingsFragmentDirections.actionUserSettingsFragment3ToProfileFragment(
+                "empty",
+                null
+            )
+        )
         viewModel.getUser(userId!!)
         viewModel.user.observe(viewLifecycleOwner, Observer {
-            when(it) {
+            when (it) {
                 is Resource.Success -> {
                     updateUI(it.value)
                 }
+
                 is Resource.Failure -> handleApiError(it)
             }
         })
@@ -69,6 +77,7 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
         binding.aboutInput.setText(user.about)
         binding.userId.text = userId
     }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?

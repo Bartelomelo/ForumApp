@@ -22,12 +22,15 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
     private lateinit var adapter: CategoryListAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setFragmentTitle("Categories")
+        disableBackButton()
         viewModel.getCategories()
         viewModel.categoryResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
                     updateUI(it.value)
                 }
+
                 is Resource.Failure -> handleApiError(it)
             }
         }
@@ -35,7 +38,10 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
 
     private fun updateUI(categoryResponse: CategoryResponse) {
         adapter = CategoryListAdapter {
-            val action = CategoriesFragmentDirections.actionCategoriesFragmentToForumFragment(it._id)
+            val action = CategoriesFragmentDirections.actionCategoriesFragmentToForumFragment(
+                it._id,
+                it.title
+            )
             findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter
@@ -45,6 +51,7 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
             MarginItemDecoration(25)
         )
     }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?

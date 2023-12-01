@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.froumapp.data.network.Resource
-import com.example.froumapp.data.responses.Forum
 import com.example.froumapp.data.responses.ThreadResponse
 import com.example.froumapp.databinding.FragmentForumThreadBinding
 import com.example.froumapp.ui.MarginItemDecoration
@@ -26,6 +25,8 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
     private val args: ForumThreadFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setFragmentTitle(args.forumName)
+        setNavigationDestination(ForumThreadFragmentDirections.actionForumThreadFragmentToForumFragment(args.categoryId, args.categoryName))
         viewModel.getThreadsByForumId(args.forumId)
         viewModel.threadResponse.observe(viewLifecycleOwner) {
             when (it) {
@@ -44,7 +45,7 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
 
     private fun updateUI(threadResponse: ThreadResponse) {
         adapter = ThreadListAdapter {
-            val action = ForumThreadFragmentDirections.actionForumThreadFragmentToThreadFragment(it._id)
+            val action = ForumThreadFragmentDirections.actionForumThreadFragmentToThreadFragment(it._id, true, args.forumId, args.forumName, args.categoryId, args.categoryName)
             findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter

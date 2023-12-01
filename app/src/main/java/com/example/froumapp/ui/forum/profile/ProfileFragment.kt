@@ -26,11 +26,25 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        disableBackButton()
+        setFragmentTitle("Profile")
+
         if (args.userId == "empty") {
             currentUser = userId!!
         } else {
             currentUser = args.userId!!
             setGuestUI()
+            enableBackButton()
+            setNavigationDestination(
+                ProfileFragmentDirections.actionProfileFragmentToThreadFragment(
+                    args.threadId!!,
+                    args.isFromCategory,
+                    args.forumId,
+                    args.forumName,
+                    args.categoryId,
+                    args.categoryName
+                )
+            )
         }
         Log.d("args", args.userId!!)
 
@@ -81,6 +95,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 binding.followButton.visibility = View.GONE
                 binding.unfollowButton.visibility = View.GONE
             }
+
             else -> {
                 if (user.followers.contains(userId!!)) {
                     binding.followButton.visibility = View.GONE
