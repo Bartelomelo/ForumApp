@@ -54,11 +54,13 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
         viewModel.threadResponseItem.observe(this.viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
+                    binding.progressbar.visibility = View.GONE
                     updateUI(it.value)
                     thread = it.value
                 }
 
                 is Resource.Failure -> handleApiError(it)
+                is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
         }
         binding.followButton.setOnClickListener {
@@ -66,11 +68,13 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
             viewModel.followUnfollowMessage.observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Success -> {
+                        binding.progressbar.visibility = View.GONE
                         binding.unfollowButton.visibility = View.VISIBLE
                         binding.followButton.visibility = View.GONE
                     }
 
                     is Resource.Failure -> handleApiError(it)
+                    is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
                 }
             }
         }
@@ -79,11 +83,13 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
             viewModel.followUnfollowMessage.observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Success -> {
+                        binding.progressbar.visibility = View.GONE
                         binding.followButton.visibility = View.VISIBLE
                         binding.unfollowButton.visibility = View.GONE
                     }
 
                     is Resource.Failure -> handleApiError(it)
+                    is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
                 }
             }
         }

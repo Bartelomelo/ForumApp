@@ -205,5 +205,35 @@
         <argument
             android:name="categoryName"
             app:argType="string" />
+        <action
+            android:id="@+id/action_forumThreadFragment_to_addThreadFragment"
+            app:destination="@id/addThreadFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addThreadFragment"
+        android:name="com.example.froumapp.ui.forum.categories.forums.threads.AddThreadFragment"
+        android:label="AddThreadFragment" >
+        <action
+            android:id="@+id/action_addThreadFragment_to_threadFragment"
+            app:destination="@id/threadFragment" />
+        <action
+            android:id="@+id/action_addThreadFragment_to_forumThreadFragment"
+            app:destination="@id/forumThreadFragment" />
+        <argument
+            android:name="forumId"
+            app:argType="string" />
+        <argument
+            android:name="forumName"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <argument
+            android:name="threadId"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

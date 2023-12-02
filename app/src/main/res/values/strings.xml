@@ -26,4 +26,9 @@
     <string name="add_post">dodaj Komentarz</string>
     <string name="obserwuj">Obserwuj</string>
     <string name="unfollow">Przestań obserwować</string>
+    <string name="add_thread_title">Dodawanie wątku</string>
+    <string name="add_thread">Dodaj wątek</string>
+    <string name="add_a_photo">Add a photo</string>
+    <string name="add_thread_description">Dodaj opis wątku</string>
+    <string name="type_thread_title">Dodaj tytuł wątku</string>
 </resources>

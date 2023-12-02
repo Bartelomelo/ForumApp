@@ -36,10 +36,12 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
         viewModel.user.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
+                    binding.progressbar.visibility = View.GONE
                     updateUI(it.value)
                 }
 
                 is Resource.Failure -> handleApiError(it)
+                is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
         })
 
@@ -56,6 +58,7 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
             viewModel.updateResponse.observe(viewLifecycleOwner, Observer {
                 when (it) {
                     is Resource.Success -> {
+                        binding.progressbar.visibility = View.GONE
                         findNavController().navigate(R.id.action_userSettingsFragment3_to_profileFragment)
                     }
 
@@ -63,6 +66,7 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
                         Log.d("request", it.toString())
                         handleApiError(it)
                     }
+                    is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
                 }
             })
         }

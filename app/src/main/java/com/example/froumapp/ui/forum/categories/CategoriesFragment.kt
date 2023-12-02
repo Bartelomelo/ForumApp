@@ -28,10 +28,12 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
         viewModel.categoryResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
+                    binding.progressbar.visibility = View.GONE
                     updateUI(it.value)
                 }
 
                 is Resource.Failure -> handleApiError(it)
+                is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
         }
     }

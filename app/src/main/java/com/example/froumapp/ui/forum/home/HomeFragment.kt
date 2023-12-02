@@ -32,10 +32,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 is Resource.Success -> {
                     updateUI(it.value)
                     Log.d("Success for Home", it.value.toString())
+                    binding.progressbar.visibility = View.GONE
                 }
 
                 is Resource.Failure -> handleApiError(it)
+                is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
+
         }
     }
 

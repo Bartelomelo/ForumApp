@@ -25,7 +25,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private lateinit var user: User
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         disableBackButton()
         setFragmentTitle("Profile")
 
@@ -54,10 +53,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             when (it) {
                 is Resource.Success -> {
                     updateUI(it.value)
+                    binding.progressbar.visibility = View.GONE
                     user = it.value
                 }
 
                 is Resource.Failure -> handleApiError(it)
+                is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
         })
         binding.settingsButton.setOnClickListener {

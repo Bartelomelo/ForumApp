@@ -1,4 +1,4 @@
-package com.example.froumapp.ui.forum.thread.post
+package com.example.froumapp.ui.forum.categories.forums.threads
 
 import android.os.Bundle
 import android.util.Log
@@ -6,50 +6,49 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.froumapp.data.network.Resource
-import com.example.froumapp.databinding.FragmentPostBinding
+import com.example.froumapp.databinding.FragmentAddThreadBinding
 import com.example.froumapp.ui.base.BaseFragment
 import com.example.froumapp.ui.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.OkHttp
 
 @AndroidEntryPoint
-class PostFragment : BaseFragment<FragmentPostBinding>() {
-    private val viewModel: PostViewModel by viewModels()
-    private val args: PostFragmentArgs by navArgs()
+class AddThreadFragment : BaseFragment<FragmentAddThreadBinding>() {
+    private val viewModel: ForumThreadViewModel by viewModels()
+    private val args: ForumThreadFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         disableBottomBar()
-        setFragmentTitle("Add Post")
+        binding.progressbar.visibility = View.GONE
+        setFragmentTitle("Add Thread")
         setNavigationDestination(
-            PostFragmentDirections.actionPostFragmentToThreadFragment(
-                args.threadId,
-                args.isFromCategory,
+            AddThreadFragmentDirections.actionAddThreadFragmentToForumThreadFragment(
                 args.forumId,
                 args.forumName,
                 args.categoryId,
                 args.categoryName
             )
         )
-        super.onViewCreated(view, savedInstanceState)
+
         binding.addButton.setOnClickListener {
-            viewModel.addPost(
+            viewModel.addThread(
                 "Bearer $token",
-                userId!!,
-                binding.postMessageInput.text.toString(),
-                args.threadId
+                args.forumId,
+                binding.threadTitleInput.text.toString(),
+                binding.threadDescriptionInput.text.toString(),
+                userId!!
             )
         }
-        viewModel.post.observe(viewLifecycleOwner) {
+        viewModel.createdThreadResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
                     val action =
-                        PostFragmentDirections.actionPostFragmentToThreadFragment(
-                            args.threadId,
-                            args.isFromCategory,
+                        AddThreadFragmentDirections.actionAddThreadFragmentToThreadFragment(
+                            it.value._id,
+                            true,
                             args.forumId,
                             args.forumName,
                             args.categoryId,
@@ -62,10 +61,11 @@ class PostFragment : BaseFragment<FragmentPostBinding>() {
                 is Resource.Loading -> {}
             }
         }
+
     }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentPostBinding = FragmentPostBinding.inflate(inflater, container, false)
+    ): FragmentAddThreadBinding = FragmentAddThreadBinding.inflate(inflater, container, false)
 }

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.froumapp.data.responses.Post
-import com.example.froumapp.data.responses.ThreadResponseItem
 import com.example.froumapp.databinding.PostListBinding
 
 class PostListAdapter(private val onItemClicked: (Post) -> Unit) :

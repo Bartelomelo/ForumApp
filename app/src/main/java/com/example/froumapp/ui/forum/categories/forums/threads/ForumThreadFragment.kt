@@ -26,26 +26,50 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setFragmentTitle(args.forumName)
-        setNavigationDestination(ForumThreadFragmentDirections.actionForumThreadFragmentToForumFragment(args.categoryId, args.categoryName))
+        setNavigationDestination(
+            ForumThreadFragmentDirections.actionForumThreadFragmentToForumFragment(
+                args.categoryId,
+                args.categoryName
+            )
+        )
         viewModel.getThreadsByForumId(args.forumId)
         viewModel.threadResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
                     updateUI(it.value)
                     Log.d("Success for ForumThreadFragment", it.value.toString())
+                    binding.progressbar.visibility = View.GONE
                 }
 
                 is Resource.Failure -> {
                     handleApiError(it)
                 }
+                is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
+        }
+        binding.addButton.setOnClickListener {
+            val action = ForumThreadFragmentDirections.actionForumThreadFragmentToAddThreadFragment(
+                args.forumId,
+                args.forumName,
+                args.categoryId,
+                args.categoryName,
+                null
+            )
+            findNavController().navigate(action)
         }
 
     }
 
     private fun updateUI(threadResponse: ThreadResponse) {
         adapter = ThreadListAdapter {
-            val action = ForumThreadFragmentDirections.actionForumThreadFragmentToThreadFragment(it._id, true, args.forumId, args.forumName, args.categoryId, args.categoryName)
+            val action = ForumThreadFragmentDirections.actionForumThreadFragmentToThreadFragment(
+                it._id,
+                true,
+                args.forumId,
+                args.forumName,
+                args.categoryId,
+                args.categoryName
+            )
             findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter

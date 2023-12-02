@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp" >
+        <TextView
+            android:id="@+id/Add_thread_title"
+            android:text="@string/add_thread_title"
+            android:layout_width="350dp"
+            android:layout_height="120dp"
+            android:fontFamily="@font/happymonkey_regular"
+            android:textColor="@color/appColor"
+            android:textAppearance="?attr/textAppearanceHeadline3"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/thread_title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/type_thread_title"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Add_thread_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/thread_title_input"
+                android:layout_width="match_parent"
+                android:maxLines="4"
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:singleLine="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/thread_description_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/add_thread_description"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/thread_title_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/thread_description_input"
+                android:layout_width="match_parent"
+                android:maxLines="4"
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:singleLine="false" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/add_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/baseline_add_a_photo_24"
+            app:tint="@color/appColor"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/thread_description_layout"
+            android:contentDescription="@string/add_a_photo" />
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="125dp"
+            android:layout_height="55dp"
+            android:text="@string/add_thread"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@id/add_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
