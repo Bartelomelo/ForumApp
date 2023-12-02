@@ -144,6 +144,25 @@
         <action
             android:id="@+id/action_postFragment_to_threadFragment"
             app:destination="@id/threadFragment" />
+        <argument
+            android:name="isFromCategory"
+            app:argType="boolean" />
+        <argument
+            android:name="forumId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="forumName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/forumFragment"

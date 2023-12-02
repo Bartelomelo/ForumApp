@@ -20,7 +20,7 @@ class PostViewModel @Inject constructor(
     val post: LiveData<Resource<Post>>
         get() = _post
 
-    fun addPost(userId: String, comment: String, threadId: String) = viewModelScope.launch {
-        _post.value = repository.addPost(userId, comment, threadId)
+    fun addPost(token: String, userId: String, comment: String, threadId: String) = viewModelScope.launch {
+        _post.value = repository.addPost(token, userId, comment, threadId)
     }
 }

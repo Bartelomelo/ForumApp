@@ -24,16 +24,37 @@ class PostFragment : BaseFragment<FragmentPostBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         disableBottomBar()
         setFragmentTitle("Add Post")
-        setNavigationDestination(PostFragmentDirections.actionPostFragmentToThreadFragment(args.threadId, true, null, null, null, null))
+        setNavigationDestination(
+            PostFragmentDirections.actionPostFragmentToThreadFragment(
+                args.threadId,
+                args.isFromCategory,
+                args.forumId,
+                args.forumName,
+                args.categoryId,
+                args.categoryName
+            )
+        )
         super.onViewCreated(view, savedInstanceState)
         binding.addButton.setOnClickListener {
-            viewModel.addPost(userId!!, binding.postMessageInput.text.toString(), args.threadId)
+            viewModel.addPost(
+                "Bearer $token",
+                userId!!,
+                binding.postMessageInput.text.toString(),
+                args.threadId
+            )
         }
         viewModel.post.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
                     val action =
-                        PostFragmentDirections.actionPostFragmentToThreadFragment(args.threadId, true, null, null, null, null)
+                        PostFragmentDirections.actionPostFragmentToThreadFragment(
+                            args.threadId,
+                            args.isFromCategory,
+                            args.forumId,
+                            args.forumName,
+                            args.categoryId,
+                            args.categoryName
+                        )
                     findNavController().navigate(action)
                 }
 

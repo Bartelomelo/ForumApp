@@ -34,7 +34,6 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
     private lateinit var thread: ThreadResponseItem
 
 
-    @SuppressLint("ShowToast")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         disableBottomBar()
@@ -103,7 +102,14 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
             findNavController().navigate(action)
         }
         binding.replyButton.setOnClickListener {
-            val action = ThreadFragmentDirections.actionThreadFragmentToPostFragment(thread._id)
+            val action = ThreadFragmentDirections.actionThreadFragmentToPostFragment(
+                thread._id,
+                args.isFromCategory,
+                args.forumId,
+                args.forumName,
+                args.categoryId,
+                args.categoryName
+            )
             findNavController().navigate(action)
         }
 
