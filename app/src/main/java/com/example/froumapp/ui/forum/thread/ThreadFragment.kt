@@ -47,6 +47,8 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
                     args.categoryName!!
                 )
             )
+        } else if (args.isFromNotification) {
+            setNavigationDestination(ThreadFragmentDirections.actionThreadFragmentToNotificationsFragment())
         } else {
             setNavigationDestination(ThreadFragmentDirections.actionThreadFragmentToHomeFragment())
         }

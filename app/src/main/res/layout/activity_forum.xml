@@ -14,11 +14,10 @@
         app:titleTextColor="@color/white"
         android:theme="@style/TintedNavigation"
         android:tint="@color/white"
+        android:layout_marginTop="60dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -39,7 +38,7 @@
         android:id="@+id/fragment_view"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="410dp"
-        android:layout_height="600dp"
+        android:layout_height="649dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"

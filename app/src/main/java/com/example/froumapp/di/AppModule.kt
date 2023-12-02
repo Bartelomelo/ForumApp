@@ -3,6 +3,7 @@ package com.example.froumapp.di
 import com.example.froumapp.data.network.AuthApi
 import com.example.froumapp.data.network.CategoryApi
 import com.example.froumapp.data.network.ForumApi
+import com.example.froumapp.data.network.NotificationsApi
 import com.example.froumapp.data.network.PostApi
 import com.example.froumapp.data.network.ThreadApi
 import com.example.froumapp.data.network.RemoteDataSource
@@ -55,5 +56,12 @@ object AppModule {
         remoteDataSource: RemoteDataSource
     ): ForumApi {
         return remoteDataSource.buildApi(ForumApi::class.java, null, null)
+    }
+
+    @Provides
+    fun provideNotificationsApi(
+        remoteDataSource: RemoteDataSource
+    ): NotificationsApi {
+        return remoteDataSource.buildApi(NotificationsApi::class.java, null, null)
     }
 }
