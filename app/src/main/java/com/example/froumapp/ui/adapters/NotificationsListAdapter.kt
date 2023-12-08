@@ -32,7 +32,11 @@ class NotificationsListAdapter(private val onItemClicked: (NotificationResponseI
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: NotificationResponseItem) {
             binding.apply {
-                username.text = item.sender.username
+                when (item.type) {
+                    "thread-author" -> notificationText.text = "Użytkownik ${item.sender.username} dodał komentarz w twoim wątku."
+                    "thread" -> notificationText.text = "Użytkownik ${item.sender.username} dodał komentarz do obserwowanego wątku."
+                    "forum" -> notificationText.text = "Użytkownik ${item.sender.username} dodał wątek do forum ${item.forum.name}."
+                }
             }
         }
     }

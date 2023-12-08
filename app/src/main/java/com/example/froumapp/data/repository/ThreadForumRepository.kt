@@ -1,6 +1,7 @@
 package com.example.froumapp.data.repository
 
 import com.example.froumapp.data.network.ThreadApi
+import com.example.froumapp.data.responses.Type
 import javax.inject.Inject
 
 class ThreadForumRepository @Inject constructor(
@@ -12,5 +13,9 @@ class ThreadForumRepository @Inject constructor(
 
     suspend fun addThread(token: String, forumId: String, threadTitle: String, threadDescription: String, userId: String) = safeApiCall {
         api.addThread(token, forumId, threadTitle, threadDescription, userId)
+    }
+
+    suspend fun followForum(token: String, id: String, type: Type) = safeApiCall {
+        api.followForum(token, id, type)
     }
 }

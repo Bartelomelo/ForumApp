@@ -32,7 +32,7 @@ class PostListAdapter(private val onItemClicked: (Post) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Post) {
             binding.apply {
-                username.text = item.author.username
+                username.text = item.author?.username
                 threadDescription.text = item.comment
             }
         }

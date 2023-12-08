@@ -31,4 +31,5 @@
     <string name="add_a_photo">Add a photo</string>
     <string name="add_thread_description">Dodaj opis wątku</string>
     <string name="type_thread_title">Dodaj tytuł wątku</string>
+    <string name="follow">follow</string>
 </resources>

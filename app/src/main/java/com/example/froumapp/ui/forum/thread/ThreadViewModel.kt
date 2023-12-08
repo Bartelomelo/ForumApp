@@ -7,7 +7,6 @@ import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.repository.ThreadRepository
 import com.example.froumapp.data.responses.FollowResponse
 import com.example.froumapp.data.responses.ThreadResponseItem
-import com.example.froumapp.data.responses.UpdateResponse
 import com.example.froumapp.data.responses.UserId
 import com.example.froumapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

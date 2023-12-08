@@ -2,12 +2,15 @@ package com.example.froumapp.ui.forum.categories.forums
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.froumapp.R
 import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.responses.ForumResponse
 import com.example.froumapp.databinding.FragmentForumBinding
@@ -34,6 +37,7 @@ class ForumFragment : BaseFragment<FragmentForumBinding>() {
                     binding.progressbar.visibility = View.GONE
                     updateUI(it.value)
                 }
+
                 is Resource.Failure -> handleApiError(it)
                 is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
@@ -42,7 +46,13 @@ class ForumFragment : BaseFragment<FragmentForumBinding>() {
 
     private fun updateUI(forumResponse: ForumResponse) {
         adapter = ForumListAdapter {
-            val action = ForumFragmentDirections.actionForumFragmentToForumThreadFragment(it._id, it.name, args.categoryId, args.categoryName)
+            val action = ForumFragmentDirections.actionForumFragmentToForumThreadFragment(
+                it._id,
+                it.name,
+                args.categoryId,
+                args.categoryName,
+                it.followers.toTypedArray()
+            )
             findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter
@@ -52,6 +62,7 @@ class ForumFragment : BaseFragment<FragmentForumBinding>() {
             MarginItemDecoration(25)
         )
     }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?

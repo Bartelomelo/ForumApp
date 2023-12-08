@@ -225,6 +225,11 @@
         <action
             android:id="@+id/action_forumThreadFragment_to_addThreadFragment"
             app:destination="@id/addThreadFragment" />
+        <argument
+            android:name="followers"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/addThreadFragment"

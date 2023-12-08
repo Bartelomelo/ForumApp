@@ -1,3 +1,5 @@
 package com.example.froumapp.data.responses
 
-class FollowResponse : ArrayList<String>()
+data class Type(
+    val type: Int
+)

@@ -46,12 +46,12 @@ class CategoriesFragment : BaseFragment<FragmentCategoriesBinding>() {
             )
             findNavController().navigate(action)
         }
+        binding.recyclerView.addItemDecoration(
+            MarginItemDecoration(15)
+        )
         binding.recyclerView.adapter = adapter
         adapter.submitList(categoryResponse)
         binding.recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
-        binding.recyclerView.addItemDecoration(
-            MarginItemDecoration(25)
-        )
     }
 
     override fun getFragmentBinding(

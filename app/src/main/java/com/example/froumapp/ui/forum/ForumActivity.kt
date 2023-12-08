@@ -23,7 +23,7 @@ class ForumActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        hideSystemUI()
+        //hideSystemUI()
         setContentView(R.layout.activity_forum)
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)

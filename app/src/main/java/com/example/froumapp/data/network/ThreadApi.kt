@@ -3,6 +3,7 @@ package com.example.froumapp.data.network
 import com.example.froumapp.data.responses.FollowResponse
 import com.example.froumapp.data.responses.ThreadResponse
 import com.example.froumapp.data.responses.ThreadResponseItem
+import com.example.froumapp.data.responses.Type
 import com.example.froumapp.data.responses.UserId
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -25,7 +26,7 @@ interface ThreadApi {
         @Field("forumId") forumId: String,
         @Field("title") threadTitle: String,
         @Field("description") threadDescription: String,
-        @Field("authorId") userId : String
+        @Field("authorId") userId: String
     ): ThreadResponseItem
 
     @GET("thread/{threadId}")
@@ -40,5 +41,12 @@ interface ThreadApi {
         @Path("threadId") threadId: String,
         @Path("type") type: String,
         @Body user: UserId
+    ): FollowResponse
+
+    @PUT("forum/{id}/follow/")
+    suspend fun followForum(
+        @Header("Authorization") token: String,
+        @Path("id") forumId: String,
+        @Body user: Type
     ): FollowResponse
 }

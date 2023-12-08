@@ -1,11 +1,13 @@
 package com.example.froumapp.ui.base
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import androidx.lifecycle.lifecycleScope
@@ -83,6 +85,24 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         toolBar?.setNavigationOnClickListener {
             findNavController().navigate(action)
         }
+    }
+
+    fun setToolbarFollowIcon() {
+        toolBar?.menu?.getItem(0)?.setIcon(R.drawable.baseline_follow)
+        toolBar?.menu?.getItem(0)?.icon?.setTint(Color.parseColor("#ffffff"));
+    }
+
+    fun setToolbarUnfollowIcon() {
+        toolBar?.menu?.getItem(0)?.setIcon(R.drawable.baseline_unfollow)
+        toolBar?.menu?.getItem(0)?.icon?.setTint(Color.parseColor("#ffffff"));
+    }
+
+    fun toolbarInflateMenu() {
+        toolBar?.inflateMenu(R.menu.action_bar_menu)
+    }
+
+    fun clearItemMenu() {
+        toolBar?.menu?.clear()
     }
 
     fun logout() = lifecycleScope.launch {

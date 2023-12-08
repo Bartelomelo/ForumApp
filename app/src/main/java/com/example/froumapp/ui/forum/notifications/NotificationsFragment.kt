@@ -1,15 +1,20 @@
 package com.example.froumapp.ui.forum.notifications
 
+import android.graphics.drawable.GradientDrawable.Orientation
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.froumapp.R
 import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.responses.ForumResponse
@@ -56,9 +61,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>() {
         binding.recyclerView.adapter = adapter
         adapter.submitList(notificationResponse)
         binding.recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
-        binding.recyclerView.addItemDecoration(
-            MarginItemDecoration(25)
-        )
+        binding.recyclerView.addItemDecoration(MarginItemDecoration(10))
     }
     override fun getFragmentBinding(
         inflater: LayoutInflater,
