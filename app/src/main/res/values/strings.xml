@@ -32,4 +32,7 @@
     <string name="add_thread_description">Dodaj opis wątku</string>
     <string name="type_thread_title">Dodaj tytuł wątku</string>
     <string name="follow">follow</string>
+    <string name="add_date">Dodano:</string>
+    <string name="views">Odsłony</string>
+    <string name="answiers_text">Odpowiedzi</string>
 </resources>

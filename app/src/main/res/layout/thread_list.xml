@@ -3,14 +3,16 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="380dp"
     android:layout_height="180dp"
     app:cardBackgroundColor="@color/threadBackgroundColor"
     app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_width="380dp"
+        android:layout_height="180dp"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/user_profile_image"
@@ -38,6 +40,83 @@
             tools:text="bartelomelo" />
 
         <TextView
+            android:id="@+id/add_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="@string/add_date"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintEnd_toStartOf="@id/add_date"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/add_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            tools:text="11.11.2023"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--
+        <TextView
+            android:id="@+id/answers_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintTop_toBottomOf="@id/add_date_text"
+            app:layout_constraintEnd_toStartOf="@id/answers"
+            android:text="@string/answers_text" />
+        -->
+        <ImageView
+            android:id="@+id/answers_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/round_comment_24"
+            app:layout_constraintEnd_toStartOf="@id/answers"
+            app:layout_constraintTop_toBottomOf="@id/view_icon" />
+
+        <TextView
+            android:id="@+id/answers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintBottom_toBottomOf="@id/answers_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/answers_icon"
+            tools:text="22" />
+
+        <ImageView
+            android:id="@+id/view_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/outline_remove_red_eye_24"
+            app:layout_constraintEnd_toStartOf="@id/views"
+            app:layout_constraintTop_toBottomOf="@id/add_date_text" />
+
+        <TextView
+            android:id="@+id/views"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintBottom_toBottomOf="@id/view_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/view_icon"
+            tools:text="100" />
+
+
+        <TextView
             android:id="@+id/title"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
@@ -50,32 +129,17 @@
             app:layout_constraintTop_toBottomOf="@id/username"
             tools:text="Czy Aprilia Rs daje rade palić kapcia na dwójce?" />
 
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/thread_image"
-            android:layout_width="90dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/aprilia"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ThreadPicture" />
-
         <TextView
             android:id="@+id/thread_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:maxEms="15"
+            android:layout_marginTop="10dp"
+            android:maxEms="20"
             android:singleLine="false"
             android:textAppearance="?attr/textAppearanceBodySmall"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Chciałem dopalić opone i zrobić troszkę dymu, a jestem początkujący. O oponie 150/60R17." />
 
 

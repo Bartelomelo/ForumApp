@@ -20,8 +20,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,20 +48,20 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/pikaczu"
+                        tools:src="@drawable/pikaczu"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearanceOverlay="@style/ProfilePicture" />
 
                     <TextView
                         android:id="@+id/thread_author_name"
-                        android:layout_width="250dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:gravity="left|center"
                         android:textSize="24sp"
+                        android:layout_marginStart="15dp"
                         app:layout_constraintBottom_toBottomOf="@id/thread_profile_picture"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/thread_profile_picture"
+                        app:layout_constraintStart_toEndOf="@id/thread_profile_picture"
                         app:layout_constraintTop_toTopOf="@id/thread_profile_picture"
                         tools:ignore="RtlHardcoded"
                         tools:text="bartelomelo" />
@@ -87,42 +86,74 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:contentDescription="@string/unfollow" />
 
+                    <TextView
+                        android:id="@+id/add_date_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="@string/add_date"
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        app:layout_constraintStart_toEndOf="@id/thread_author_name"
+                        app:layout_constraintEnd_toStartOf="@id/add_date"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/add_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="10dp"
+                        tools:text="11.11.2023"
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        app:layout_constraintStart_toEndOf="@id/add_date_text"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/view_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/outline_remove_red_eye_24"
+                        app:layout_constraintEnd_toStartOf="@id/views"
+                        app:layout_constraintTop_toBottomOf="@id/add_date_text" />
+
+                    <TextView
+                        android:id="@+id/views"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="15dp"
+                        android:textAppearance="?attr/textAppearanceBodySmall"
+                        app:layout_constraintBottom_toBottomOf="@id/view_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/view_icon"
+                        tools:text="100" />
+
 
                     <TextView
                         android:id="@+id/thread_title"
                         android:layout_width="250dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="20dp"
                         android:textSize="24sp"
-                        app:layout_constraintEnd_toEndOf="@id/thread_author_name"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/thread_profile_picture"
                         tools:text="Czy Aprilia RS pali gumę na dwójce?" />
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/thread_image"
-                        android:layout_width="350dp"
-                        android:layout_height="250dp"
-                        android:layout_marginTop="15dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/aprilia"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/thread_title"
-                        app:shapeAppearanceOverlay="@style/ThreadPicture" />
 
                     <TextView
                         android:id="@+id/thread_description"
                         android:layout_width="350dp"
                         android:layout_height="wrap_content"
                         android:maxHeight="250dp"
-                        android:layout_marginTop="30dp"
-                        android:layout_marginBottom="30dp"
+                        android:layout_marginTop="15dp"
+                        android:paddingBottom="30dp"
                         android:textAppearance="?attr/textAppearanceBodyMedium"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/thread_image"
+                        app:layout_constraintTop_toBottomOf="@id/thread_title"
                         tools:text="Witam, jestem początkującym motocyklistą, czy moja aprilka spali gumę na dwójeczce? :)" />
 
 

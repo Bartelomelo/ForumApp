@@ -16,5 +16,6 @@ data class User(
     val reputation: Int,
     val threadsFollowed: List<Any>,
     val updatedAt: String,
-    val username: String
+    val username: String,
+    val profilePicture: String
 )

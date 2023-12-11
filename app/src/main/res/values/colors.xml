@@ -7,7 +7,7 @@
     <color name="appColor">#0797FF</color>
     <color name="appBackgroundColor">#087ED3</color>
     <color name="textAboutColor">#114468</color>
-    <color name="threadBackgroundColor">#E6E6E6</color>
+    <color name="threadBackgroundColor">#DFDEDE</color>
     <color name="postBackgroundColor">#CDCDCD</color>
     <color name="transparent">#00CDCDCD</color>
 </resources>

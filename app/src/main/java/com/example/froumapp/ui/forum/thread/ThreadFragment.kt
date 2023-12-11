@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -17,13 +17,14 @@ import com.example.froumapp.data.responses.ThreadResponseItem
 import com.example.froumapp.databinding.FragmentThreadBinding
 import com.example.froumapp.ui.MarginItemDecoration
 import com.example.froumapp.ui.adapters.PostListAdapter
-import com.example.froumapp.ui.adapters.ThreadListAdapter
 import com.example.froumapp.ui.base.BaseFragment
-import com.example.froumapp.ui.forum.home.HomeFragmentDirections
 import com.example.froumapp.ui.handleApiError
-import com.example.froumapp.ui.snackbar
-import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Date
 
 @AndroidEntryPoint
 class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
@@ -127,6 +128,8 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
         binding.threadAuthorName.text = thread.author.username
         binding.threadTitle.text = thread.title
         binding.threadDescription.text = thread.description
+        binding.views.text = thread.views.toString()
+        binding.addDate.text = thread.createdAt.split("T")[0]
         when (thread.author._id) {
             userId -> {
                 binding.followButton.visibility = View.GONE
@@ -150,6 +153,10 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
         binding.threadPosts.addItemDecoration(
             MarginItemDecoration(25)
         )
+        Picasso.with(requireContext())
+            .load("http://10.0.2.2:5000/public/images/users/${thread.author.username}/${thread.author.profilePicture}")
+            .error(ContextCompat.getDrawable(requireContext(), R.drawable.empty_profile_picture))
+            .into(binding.threadProfilePicture)
     }
 
     override fun getFragmentBinding(

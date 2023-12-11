@@ -2,11 +2,15 @@ package com.example.froumapp.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.froumapp.R
 import com.example.froumapp.data.responses.NotificationResponseItem
 import com.example.froumapp.databinding.NotificationListBinding
+import com.squareup.picasso.Picasso
 
 
 class NotificationsListAdapter(private val onItemClicked: (NotificationResponseItem) -> Unit) :
@@ -22,6 +26,10 @@ class NotificationsListAdapter(private val onItemClicked: (NotificationResponseI
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current = getItem(position)
+        val profilePhoto = holder.itemView.findViewById<ImageView>(R.id.user_profile_image)
+        Picasso.with(holder.itemView.context).load("http://10.0.2.2:5000/public/images/users/${current.sender.username}/${current.sender.profilePicture}")
+            .error(ContextCompat.getDrawable(holder.itemView.context, R.drawable.empty_profile_picture))
+            .into(profilePhoto)
         holder.itemView.setOnClickListener {
             onItemClicked(current)
         }

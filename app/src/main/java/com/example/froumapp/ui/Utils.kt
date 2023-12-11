@@ -42,8 +42,14 @@ fun Fragment.handleApiError(
             if (this is LoginFragment) {
                 requireView().snackbar("Wprowadzono błędne dane logowania.")
             } else {
+                requireView().snackbar("Problem z serwerem.")
                 (this as BaseFragment<*>).logout()
             }
+        }
+
+        failure.errorCode == 401 -> {
+            (this as BaseFragment<*>).logout()
+            requireView().snackbar("Sesja wygasła, wymagane ponowne zalogowanie.")
         }
 
         else -> {

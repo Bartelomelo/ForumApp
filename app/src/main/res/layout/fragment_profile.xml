@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/pikaczu"
+        tools:src="@drawable/aprilia"
         android:contentDescription="@string/image_desc" />
 
 

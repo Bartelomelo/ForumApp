@@ -8,4 +8,5 @@ data class Author(
     val rank: String?,
     val reputation: Int?,
     val signature: String?,
+    val profilePicture: String?,
 )
