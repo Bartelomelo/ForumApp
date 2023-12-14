@@ -1,7 +1,7 @@
 package com.example.froumapp.data.repository
 
 import com.example.froumapp.data.network.ThreadApi
-import com.example.froumapp.data.responses.UserId
+import com.example.froumapp.data.responses.Type
 import javax.inject.Inject
 
 class ThreadRepository @Inject constructor(
@@ -11,7 +11,7 @@ class ThreadRepository @Inject constructor(
         api.getThreadById(threadId)
     }
 
-    suspend fun followUnfollowThread(token: String, threadId: String, type: String, user: UserId) = safeApiCall {
-        api.followUnfollowThread(token, threadId, type, user)
+    suspend fun followUnfollowThread(token: String, threadId: String, user: Type) = safeApiCall {
+        api.followUnfollowThread(token, threadId, user)
     }
 }

@@ -10,4 +10,8 @@ class NotificationsRepository @Inject constructor(
     suspend fun getNotifications(token: String) = safeApiCall {
         api.getNotifications(token)
     }
+
+    suspend fun deleteNotifications(token: String) = safeApiCall {
+        api.deleteNotifications(token)
+    }
 }

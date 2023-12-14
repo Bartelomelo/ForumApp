@@ -35,4 +35,6 @@
     <string name="add_date">Dodano:</string>
     <string name="views">Odsłony</string>
     <string name="answiers_text">Odpowiedzi</string>
+    <string name="rank">Ranga</string>
+    <string name="reputation_text">Reputacja:</string>
 </resources>

@@ -74,7 +74,8 @@
                         android:background="@null"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:contentDescription="follow button" />
+                        android:contentDescription="follow button"
+                        app:tint="@color/appColor"/>
 
                     <ImageButton
                         android:id="@+id/unfollow_button"
@@ -84,7 +85,8 @@
                         android:background="@null"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:contentDescription="@string/unfollow" />
+                        android:contentDescription="@string/unfollow"
+                        app:tint="@color/appColor" />
 
                     <TextView
                         android:id="@+id/add_date_text"

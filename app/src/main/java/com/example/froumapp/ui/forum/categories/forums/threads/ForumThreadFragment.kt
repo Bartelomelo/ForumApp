@@ -26,12 +26,10 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
     private val viewModel: ForumThreadViewModel by viewModels()
     private lateinit var adapter: ThreadListAdapter
     private val args: ForumThreadFragmentArgs by navArgs()
-    private var toolBar: Toolbar? = null
     private var followersList: MutableList<String> = mutableListOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         followersList = args.followers?.toMutableList() ?: mutableListOf()
-        toolBar = (activity as ForumActivity).findViewById(R.id.toolbar)
         setFragmentTitle(args.forumName)
         toolbarInflateMenu()
         setNavigationDestination(
@@ -41,9 +39,9 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
             )
         )
         if (args.followers?.toList()?.contains(userId!!) == true) {
-            setToolbarUnfollowIcon()
+            setToolbarIcon(R.drawable.baseline_unfollow)
         } else {
-            setToolbarFollowIcon()
+            setToolbarIcon(R.drawable.baseline_follow)
         }
         toolBar?.menu?.getItem(0)?.setOnMenuItemClickListener { it ->
             when (it.itemId) {
@@ -56,7 +54,7 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
                                     is Resource.Success -> {
                                         binding.progressbar.visibility = View.GONE
                                         followersList.remove(userId!!)
-                                        setToolbarFollowIcon()
+                                        setToolbarIcon(R.drawable.baseline_follow)
                                     }
 
                                     is Resource.Failure -> handleApiError(it)
@@ -73,7 +71,7 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
                                     is Resource.Success -> {
                                         binding.progressbar.visibility = View.GONE
                                         followersList.add(userId!!)
-                                        setToolbarUnfollowIcon()
+                                        setToolbarIcon(R.drawable.baseline_unfollow)
                                     }
 
                                     is Resource.Failure -> handleApiError(it)

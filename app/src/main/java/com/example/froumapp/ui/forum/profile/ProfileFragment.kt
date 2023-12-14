@@ -68,15 +68,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 ProfileFragmentDirections.actionProfileFragmentToUserSettingsFragment3(userId!!)
             findNavController().navigate(action)
         }
-        binding.followButton.setOnClickListener {
-            binding.followButton.visibility = View.GONE
-            binding.unfollowButton.visibility = View.VISIBLE
-        }
-
-        binding.unfollowButton.setOnClickListener {
-            binding.followButton.visibility = View.VISIBLE
-            binding.unfollowButton.visibility = View.GONE
-        }
 
         binding.logoutButton.setOnClickListener {
             logout()
@@ -93,24 +84,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         binding.username.text = user.username
         binding.userSignature.text = user.signature
         binding.aboutUser.text = user.about
-        when (currentUser) {
-            userId -> {
-                binding.followButton.visibility = View.GONE
-                binding.unfollowButton.visibility = View.GONE
-            }
-
-            else -> {
-                if (user.followers.contains(userId!!)) {
-                    binding.followButton.visibility = View.GONE
-                    binding.unfollowButton.visibility = View.VISIBLE
-                } else {
-                    binding.followButton.visibility = View.VISIBLE
-                    binding.unfollowButton.visibility = View.GONE
-                }
-            }
-        }
-        Log.d("picasso", "http://10.0.2.2:5000/public/images/users/${user.username}/${user.profilePicture}")
-        Picasso.with(requireContext()).load("http://10.0.2.2:5000/public/images/users/${user.username}/${user.profilePicture}")
+        binding.reputation.text = user.reputation.toString()
+        binding.rank.text = user.rank
+        binding.answers.text = user.answers.toString()
+        Log.d(
+            "picasso",
+            "http://10.0.2.2:5000/public/images/users/${user.username}/${user.profilePicture}"
+        )
+        Picasso.with(requireContext())
+            .load("http://10.0.2.2:5000/public/images/users/${user.username}/${user.profilePicture}")
             .error(ContextCompat.getDrawable(requireContext(), R.drawable.empty_profile_picture))
             .into(binding.userImage)
     }

@@ -67,7 +67,7 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
             }
         }
         binding.followButton.setOnClickListener {
-            viewModel.followUnfollowThread("Bearer $token", thread._id, "1", userId!!)
+            viewModel.followUnfollowThread("Bearer $token", thread._id, 1)
             viewModel.followUnfollowMessage.observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Success -> {
@@ -82,7 +82,7 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
             }
         }
         binding.unfollowButton.setOnClickListener {
-            viewModel.followUnfollowThread("Bearer $token", thread._id, "0", userId!!)
+            viewModel.followUnfollowThread("Bearer $token", thread._id, 0)
             viewModel.followUnfollowMessage.observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Success -> {

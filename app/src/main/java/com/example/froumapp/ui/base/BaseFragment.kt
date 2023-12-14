@@ -1,6 +1,7 @@
 package com.example.froumapp.ui.base
 
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +38,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     protected var userId: String? = null
     protected var token: String? = null
     private var bottomBar: BottomNavigationView? = null
-    private var toolBar: Toolbar? = null
+    protected var toolBar: Toolbar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,14 +88,9 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         }
     }
 
-    fun setToolbarFollowIcon() {
-        toolBar?.menu?.getItem(0)?.setIcon(R.drawable.baseline_follow)
-        toolBar?.menu?.getItem(0)?.icon?.setTint(Color.parseColor("#ffffff"));
-    }
-
-    fun setToolbarUnfollowIcon() {
-        toolBar?.menu?.getItem(0)?.setIcon(R.drawable.baseline_unfollow)
-        toolBar?.menu?.getItem(0)?.icon?.setTint(Color.parseColor("#ffffff"));
+    fun setToolbarIcon(icon: Int) {
+        toolBar?.menu?.getItem(0)?.setIcon(icon)
+        toolBar?.menu?.getItem(0)?.icon?.setTint(Color.parseColor("#ffffff"))
     }
 
     fun toolbarInflateMenu() {

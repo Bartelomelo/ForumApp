@@ -6,11 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.forum.profile.UserSettingsFragment">
 
+
     <TextView
         android:id="@+id/form_name"
         android:layout_width="300dp"
         android:layout_height="125dp"
-        android:gravity="center"
+        android:gravity="top|center"
         android:fontFamily="@font/happymonkey_regular"
         android:textColor="@color/appColor"
         android:textAppearance="?attr/textAppearanceHeadline3"
@@ -18,18 +19,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/form"
         tools:text="Aktualizacja profilu"/>
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/form"
         android:layout_width="370dp"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/form_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/update_button">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/userImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/image_desc"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ProfilePicture"
+            tools:src="@drawable/aprilia" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nick_label"
@@ -37,7 +50,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/type_new_nick"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/userImage"
+            app:layout_constraintBottom_toTopOf="@id/email_label">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nick_input"
@@ -131,12 +145,10 @@
         android:id="@+id/update_button"
         android:layout_width="150dp"
         android:layout_height="50dp"
-
         android:text="@string/update"
         app:layout_constraintTop_toBottomOf="@id/line"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
         android:layout_centerInParent="true"

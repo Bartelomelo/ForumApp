@@ -35,12 +35,11 @@ interface ThreadApi {
     @GET("thread/forumId/{forumId}")
     suspend fun getThreadsByForumId(@Path("forumId") forumId: String): ThreadResponse
 
-    @PUT("thread/{threadId}/follow/{type}")
+    @PUT("thread/{threadId}/follow/")
     suspend fun followUnfollowThread(
         @Header("Authorization") token: String,
         @Path("threadId") threadId: String,
-        @Path("type") type: String,
-        @Body user: UserId
+        @Body user: Type
     ): FollowResponse
 
     @PUT("forum/{id}/follow/")

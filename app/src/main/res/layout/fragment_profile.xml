@@ -1,130 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.forum.profile.ProfileFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/userImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
+        android:contentDescription="@string/image_desc"
         android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/ProfilePicture"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@drawable/aprilia"
-        android:contentDescription="@string/image_desc" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ProfilePicture"
+        tools:src="@drawable/aprilia" />
 
 
     <TextView
-    android:id="@+id/username"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="15dp"
-    app:layout_constraintTop_toBottomOf="@id/userImage"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    tools:text="Bartelomelo"
-    android:textSize="24sp"/>
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userImage"
+        tools:text="Bartelomelo" />
 
 
     <TextView
         android:id="@+id/user_signature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="sans-serif-smallcaps"
         android:textAppearance="?attr/textAppearanceBody2"
-        app:layout_constraintTop_toBottomOf="@id/username"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Aprilia RS"
-        android:textSize="20sp"/>
+        app:layout_constraintTop_toBottomOf="@id/username"
+        tools:text="Aprilia RS" />
 
-    <Button
-        android:id="@+id/follow_button"
-        android:layout_width="130dp"
-        android:layout_height="55dp"
-        android:backgroundTint="@color/follow_green"
-        android:text="@string/obserwuj"
-        android:visibility="gone"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintTop_toBottomOf="@id/user_signature"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/unfollow_button"
-        android:layout_width="130dp"
-        android:layout_height="55dp"
-        android:backgroundTint="@color/logout_red"
-        android:text="@string/unfollow"
-        android:visibility="gone"
-        android:layout_marginBottom="15dp"
+    <TextView
+        android:id="@+id/rank_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="25dp"
+        android:text="@string/rank"
+        app:layout_constraintEnd_toStartOf="@id/rank"
+        app:layout_constraintStart_toStartOf="@id/userImage"
+        app:layout_constraintTop_toBottomOf="@id/user_signature" />
+
+    <TextView
+        android:id="@+id/rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="@id/userImage"
+        app:layout_constraintStart_toEndOf="@id/rank_text"
         app:layout_constraintTop_toBottomOf="@id/user_signature"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:text="Użytkownik" />
+
+    <TextView
+        android:id="@+id/answers_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/answers_text"
+        app:layout_constraintStart_toStartOf="@id/userImage"
+        app:layout_constraintTop_toBottomOf="@id/rank_text" />
+
+    <TextView
+        android:id="@+id/answers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/answers_text"
+        app:layout_constraintTop_toBottomOf="@id/rank_text"
+        tools:text="100" />
+
+    <TextView
+        android:id="@+id/reputation_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="@string/reputation_text"
+        app:layout_constraintEnd_toStartOf="@id/reputation"
+        app:layout_constraintTop_toBottomOf="@id/rank" />
+
+    <TextView
+        android:id="@+id/reputation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/userImage"
+        app:layout_constraintTop_toBottomOf="@id/rank"
+        tools:text="100" />
+
 
     <TextView
         android:id="@+id/about_user"
         android:layout_width="250dp"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:autofillHints=""
         android:ems="10"
         android:gravity="center"
         android:singleLine="false"
-        android:textColor="@color/textAboutColor"
-        android:layout_marginTop="60dp"
-        app:layout_constraintTop_toBottomOf="@id/user_signature"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/settingsButton"
-        tools:text="Motory mają koła, a łodzie nie."
+        android:layout_marginBottom="10dp"
         android:textAppearance="?attr/textAppearanceHeadline6"
-        tools:layout_editor_absoluteX="102dp"
-        tools:layout_editor_absoluteY="530dp"
-        android:autofillHints=""
-        tools:ignore="LabelFor" />
+        android:textColor="@color/textAboutColor"
+        app:layout_constraintBottom_toTopOf="@id/settingsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Motory mają koła, a łodzie nie." />
 
     <ImageButton
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        app:tint="@color/appColor"
-        android:src="@drawable/baseline_settings_30dp"
         android:background="@null"
+        android:contentDescription="@string/settings_button"
+        android:src="@drawable/baseline_settings_30dp"
         app:layout_constraintBottom_toTopOf="@id/logout_button"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/settings_button" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/appColor" />
 
     <Button
         android:id="@+id/logout_button"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="15dp"
         android:backgroundTint="@color/logout_red"
         android:text="@string/logout"
-        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
-        android:layout_centerInParent="true"
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_centerInParent="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
