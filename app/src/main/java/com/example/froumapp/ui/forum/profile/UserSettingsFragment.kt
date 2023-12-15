@@ -1,5 +1,6 @@
 package com.example.froumapp.ui.forum.profile
 
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.example.froumapp.R
 import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.responses.User
@@ -19,11 +20,18 @@ import com.example.froumapp.ui.base.BaseFragment
 import com.example.froumapp.ui.handleApiError
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+
 
 @AndroidEntryPoint
 class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
 
     private val viewModel: ProfileViewModel by viewModels()
+    private var imageUri: String? = null
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         binding.userImage.setImageURI(uri)
     }
@@ -57,20 +65,17 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
         }
 
         binding.updateButton.setOnClickListener {
-            Log.d("token", token!!)
-            viewModel.updateUser(
-                "Bearer $token",
-                userId!!,
-                binding.nickInput.text.toString(),
-                binding.emailInput.text.toString(),
-                binding.aboutInput.text.toString(),
-                binding.signatureInput.text.toString()
-            )
-            viewModel.updateResponse.observe(viewLifecycleOwner, Observer {
+            val file = File(requireContext().cacheDir, "profile.jpg")
+            file.createNewFile()
+            file.outputStream().use {
+                requireContext().assets.open("ratchet.jpeg").copyTo(it)
+            }
+            viewModel.uploadProfilePicture(binding.nickInput.text.toString(), "profile_photo.jpeg", file)
+            viewModel.messageResponse.observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Success -> {
                         binding.progressbar.visibility = View.GONE
-                        findNavController().navigate(R.id.action_userSettingsFragment3_to_profileFragment)
+                        //findNavController().navigate(R.id.action_userSettingsFragment3_to_profileFragment)
                     }
 
                     is Resource.Failure -> {
@@ -79,7 +84,30 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
                     }
                     is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
                 }
-            })
+            }
+//            Log.d("token", token!!)
+//            viewModel.updateUser(
+//                "Bearer $token",
+//                userId!!,
+//                binding.nickInput.text.toString(),
+//                binding.emailInput.text.toString(),
+//                binding.aboutInput.text.toString(),
+//                binding.signatureInput.text.toString()
+//            )
+//            viewModel.updateResponse.observe(viewLifecycleOwner, Observer {
+//                when (it) {
+//                    is Resource.Success -> {
+//                        binding.progressbar.visibility = View.GONE
+//                        findNavController().navigate(R.id.action_userSettingsFragment3_to_profileFragment)
+//                    }
+//
+//                    is Resource.Failure -> {
+//                        Log.d("request", it.toString())
+//                        handleApiError(it)
+//                    }
+//                    is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
+//                }
+//            })
         }
 
 

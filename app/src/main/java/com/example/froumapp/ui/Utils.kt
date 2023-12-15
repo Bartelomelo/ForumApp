@@ -1,8 +1,11 @@
 package com.example.froumapp.ui
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Rect
+import android.net.Uri
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +13,9 @@ import com.example.froumapp.data.network.Resource
 import com.example.froumapp.ui.auth.LoginFragment
 import com.example.froumapp.ui.base.BaseFragment
 import com.google.android.material.snackbar.Snackbar
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {
     Intent(this, activity).also {
@@ -78,3 +84,8 @@ class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecora
         }
     }
 }
+
+class MakeFile(context: Context, bitmap: Bitmap) {
+}
+
+

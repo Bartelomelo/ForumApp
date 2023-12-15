@@ -2,6 +2,9 @@ package com.example.froumapp.data.repository
 
 import com.example.froumapp.data.network.UserApi
 import com.example.froumapp.data.responses.UpdateUser
+import com.example.froumapp.data.responses.UploadBody
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class ProfileRepository @Inject constructor(
@@ -15,5 +18,9 @@ class ProfileRepository @Inject constructor(
 
     suspend fun updateUser(token: String, userId: String, user: UpdateUser) = safeApiCall {
         api.updateUser(token, userId, user)
+    }
+
+    suspend fun uploadProfilePicture(requestBody: RequestBody) = safeApiCall {
+        api.uploadProfilePicture(requestBody)
     }
 }
