@@ -19,6 +19,7 @@ import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -52,8 +53,9 @@ class ProfileViewModel @Inject constructor(
         email: String,
         about: String,
         signature: String,
+        userPicture: String
     ) = viewModelScope.launch {
-        val user = UpdateUser(about, email, signature, userName, userId)
+        val user = UpdateUser(about, email, signature, userName, userId, userPicture)
         _updateResponse.value = repository.updateUser(token, userId, user)
     }
 
@@ -62,15 +64,11 @@ class ProfileViewModel @Inject constructor(
         filename: String,
         file: File
     ) = viewModelScope.launch {
-        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-        val userName = RequestBody.create(MultipartBody.FORM, username)
-        val fileName = RequestBody.create(MultipartBody.FORM, filename)
-        val image: MultipartBody.Part = MultipartBody.Part.createFormData("ratchet",file.name, requestFile)
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart("username", username)
             .addFormDataPart("filename", filename)
-            .addFormDataPart("file", file.name, requestFile)
+            .addFormDataPart("file", file.name, file.asRequestBody("image/*".toMediaTypeOrNull()))
             .build()
         _messageResponse.value = repository.uploadProfilePicture(requestBody)
     }

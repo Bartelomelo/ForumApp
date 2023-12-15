@@ -5,5 +5,6 @@ data class UpdateUser(
     val email: String,
     val signature: String,
     val username: String,
-    val _id: String
+    val _id: String,
+    val profilePicture: String
 )
