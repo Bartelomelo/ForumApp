@@ -2,6 +2,7 @@ package com.example.froumapp.data.repository
 
 import com.example.froumapp.data.network.ThreadApi
 import com.example.froumapp.data.responses.Type
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class ThreadForumRepository @Inject constructor(
@@ -17,5 +18,9 @@ class ThreadForumRepository @Inject constructor(
 
     suspend fun followForum(token: String, id: String, type: Type) = safeApiCall {
         api.followForum(token, id, type)
+    }
+
+    suspend fun uploadThreadPicture(requestBody: RequestBody) = safeApiCall {
+        api.uploadThreadPicture(requestBody)
     }
 }

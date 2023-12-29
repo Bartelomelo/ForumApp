@@ -1,10 +1,12 @@
 package com.example.froumapp.data.network
 
 import com.example.froumapp.data.responses.FollowResponse
+import com.example.froumapp.data.responses.MessageResponse
 import com.example.froumapp.data.responses.ThreadResponse
 import com.example.froumapp.data.responses.ThreadResponseItem
 import com.example.froumapp.data.responses.Type
 import com.example.froumapp.data.responses.UserId
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -48,4 +50,9 @@ interface ThreadApi {
         @Path("id") forumId: String,
         @Body user: Type
     ): FollowResponse
+
+    @POST("upload/thread")
+    suspend fun uploadThreadPicture(
+        @Body body: RequestBody
+    ): MessageResponse
 }

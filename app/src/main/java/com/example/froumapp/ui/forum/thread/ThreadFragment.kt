@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,7 @@ import com.example.froumapp.R
 import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.responses.ThreadResponseItem
 import com.example.froumapp.databinding.FragmentThreadBinding
+import com.example.froumapp.ui.DialogFragment
 import com.example.froumapp.ui.MarginItemDecoration
 import com.example.froumapp.ui.adapters.PostListAdapter
 import com.example.froumapp.ui.base.BaseFragment
@@ -27,13 +30,13 @@ import java.time.format.DateTimeFormatter
 import java.util.Date
 
 @AndroidEntryPoint
-class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
+class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
+    DialogFragment.DialogFragmentListener {
 
     private val viewModel: ThreadViewModel by viewModels()
     private val args: ThreadFragmentArgs by navArgs()
     private lateinit var adapter: PostListAdapter
     private lateinit var thread: ThreadResponseItem
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -121,8 +124,22 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
             )
             findNavController().navigate(action)
         }
-
+//        toolBar?.menu?.getItem(0)?.setOnMenuItemClickListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.action_follow -> {
+//                    val dialog = DialogFragment("Usuń Wątek", "Czy napewno chcesz usunąć wątek")
+//                    dialog.setTargetFragment(this, 1)
+//                    dialog.show(requireFragmentManager(), "DELETE_THREAD")
+//                    true
+//                }
+//
+//                else -> {
+//                    false
+//                }
+//            }
+//        }
     }
+
 
     private fun updateUI(thread: ThreadResponseItem) {
         binding.threadAuthorName.text = thread.author.username
@@ -134,6 +151,7 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
             userId -> {
                 binding.followButton.visibility = View.GONE
                 binding.unfollowButton.visibility = View.GONE
+                setToolbarIconVisibility(true)
             }
 
             else -> {
@@ -163,4 +181,22 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentThreadBinding = FragmentThreadBinding.inflate(inflater, container, false)
+
+    override fun onDialogPositiveClick(dialog: androidx.fragment.app.DialogFragment) {
+        //TODO("Add thread delete")
+        Toast.makeText(requireContext(), "USUWAM", Toast.LENGTH_SHORT).show()
+
+        if (args.isFromCategory) {
+            val action = ThreadFragmentDirections.actionThreadFragmentToForumThreadFragment(
+                args.forumId!!,
+                args.forumName!!,
+                args.categoryId!!,
+                args.categoryName!!
+            )
+            findNavController().navigate(action)
+        } else {
+            val action = ThreadFragmentDirections.actionThreadFragmentToHomeFragment()
+            findNavController().navigate(action)
+        }
+    }
 }

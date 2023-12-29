@@ -1,6 +1,5 @@
 package com.example.froumapp.ui.forum.profile
 
-import android.R.attr.bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.net.Uri
 import android.os.Bundle
@@ -31,7 +30,6 @@ import java.io.File
 class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
 
     private val viewModel: ProfileViewModel by viewModels()
-    private var imageUri: String? = null
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             binding.userImage.setImageURI(uri)
@@ -71,7 +69,7 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
             file.outputStream().use {
                 val bos = ByteArrayOutputStream()
                 binding.userImage.drawToBitmap()
-                    .compress(CompressFormat.PNG, 0 /*ignored for PNG*/, bos)
+                    .compress(CompressFormat.PNG, 0, bos)
                 ByteArrayInputStream(bos.toByteArray()).copyTo(it)
             }
             viewModel.uploadProfilePicture(

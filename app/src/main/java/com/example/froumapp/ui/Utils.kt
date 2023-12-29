@@ -1,12 +1,16 @@
 package com.example.froumapp.ui
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.net.Uri
+import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.froumapp.data.network.Resource
@@ -85,7 +89,35 @@ class MarginItemDecoration(private val spaceSize: Int) : RecyclerView.ItemDecora
     }
 }
 
-class MakeFile(context: Context, bitmap: Bitmap) {
+class DialogFragment(private val title: String, private val message: String) : DialogFragment() {
+
+    // The activity that creates an instance of this dialog fragment must
+    // implement this interface to receive event callbacks. Each method passes
+    // the DialogFragment in case the host needs to query it.
+    interface DialogFragmentListener {
+        fun onDialogPositiveClick(dialog: DialogFragment)
+    }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return activity?.let {
+            // Use the Builder class for convenient dialog construction.
+            val builder = AlertDialog.Builder(it)
+            builder.setTitle(title)
+            builder.setMessage(message)
+                .setPositiveButton("Tak") { _, _ ->
+                    val callback = targetFragment as? DialogFragmentListener
+                    callback?.onDialogPositiveClick(this)
+                }
+                .setNegativeButton("Nie") { dialog, id ->
+                    // User cancelled the dialog.
+                }
+            // Create the AlertDialog object and return it.
+            builder.create()
+        } ?: throw IllegalStateException("Activity cannot be null")
+    }
+
+    // Override the Fragment.onAttach() method to instantiate the
+    // NoticeDialogListener.
+
 }
 
 

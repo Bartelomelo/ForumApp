@@ -1,21 +1,15 @@
 package com.example.froumapp.data.network
 
-import android.graphics.Bitmap
 import com.example.froumapp.data.responses.MessageResponse
 import com.example.froumapp.data.responses.UpdateResponse
 import com.example.froumapp.data.responses.UpdateUser
-import com.example.froumapp.data.responses.UploadBody
 import com.example.froumapp.data.responses.User
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
-import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface UserApi {

@@ -28,8 +28,7 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         disableBackButton()
-        toolbarInflateMenu()
-        setToolbarIcon(R.drawable.baseline_delete_24)
+        //setToolbarIcon(R.drawable.baseline_delete_24)
         setFragmentTitle("Notifications")
         viewModel.getNotifications("Bearer $token")
         viewModel.notificationResponse.observe(viewLifecycleOwner) {
@@ -44,25 +43,25 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>() {
                 is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
         }
-        toolBar?.menu?.getItem(0)?.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.action_follow -> {
-                    viewModel.deleteNotifications("Bearer $token")
-                    viewModel.deleteNotificationResponse.observe(viewLifecycleOwner) {
-                        when (it) {
-                            is Resource.Success -> {
-                                viewModel.getNotifications("Bearer $token")
-                                binding.progressbar.visibility = View.GONE
-                            }
-                            is Resource.Failure -> handleApiError(it)
-                            is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
-                        }
-                    }
-                    true
-                }
-                else -> {false}
-            }
-        }
+//        toolBar?.menu?.getItem(0)?.setOnMenuItemClickListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.action_follow -> {
+//                    viewModel.deleteNotifications("Bearer $token")
+//                    viewModel.deleteNotificationResponse.observe(viewLifecycleOwner) {
+//                        when (it) {
+//                            is Resource.Success -> {
+//                                viewModel.getNotifications("Bearer $token")
+//                                binding.progressbar.visibility = View.GONE
+//                            }
+//                            is Resource.Failure -> handleApiError(it)
+//                            is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
+//                        }
+//                    }
+//                    true
+//                }
+//                else -> {false}
+//            }
+//        }
     }
 
     private fun updateUI(notificationResponse: NotificationResponse) {

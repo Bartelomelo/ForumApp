@@ -3,12 +3,17 @@ package com.example.froumapp.ui.base
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.get
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import androidx.lifecycle.lifecycleScope
@@ -55,6 +60,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
             enableBottomBar()
         }
 
+
         lifecycleScope.launch {
             token = userPreferences.authToken.first()
             userId = userPreferences.userId.first()
@@ -93,12 +99,16 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         toolBar?.menu?.getItem(0)?.icon?.setTint(Color.parseColor("#ffffff"))
     }
 
+    fun setToolbarIconVisibility(visibility: Boolean) {
+        Log.d("menuItems", toolBar?.menu?.size().toString())
+    }
+
     fun toolbarInflateMenu() {
         toolBar?.inflateMenu(R.menu.action_bar_menu)
     }
 
     fun clearItemMenu() {
-        toolBar?.menu?.clear()
+        toolBar?.menu?.close()
     }
 
     fun logout() = lifecycleScope.launch {

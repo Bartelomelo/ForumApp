@@ -14,6 +14,7 @@ import com.example.froumapp.R
 import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.responses.User
 import com.example.froumapp.databinding.FragmentProfileBinding
+import com.example.froumapp.ui.DialogFragment
 import com.example.froumapp.ui.base.BaseFragment
 import com.example.froumapp.ui.handleApiError
 import com.squareup.picasso.Picasso

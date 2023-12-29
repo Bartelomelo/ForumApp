@@ -37,4 +37,5 @@
     <string name="answiers_text">Odpowiedzi</string>
     <string name="rank">Ranga</string>
     <string name="reputation_text">Reputacja:</string>
+    <string name="image_holder">Image holder</string>
 </resources>
