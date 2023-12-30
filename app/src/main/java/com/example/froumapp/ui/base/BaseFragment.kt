@@ -1,21 +1,19 @@
 package com.example.froumapp.ui.base
 
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.ActionMenuItemView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.get
-import androidx.core.view.isVisible
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -25,7 +23,6 @@ import com.example.froumapp.data.UserPreferences
 import com.example.froumapp.data.network.RemoteDataSource
 import com.example.froumapp.ui.auth.AuthActivity
 import com.example.froumapp.ui.forum.ForumActivity
-import com.example.froumapp.ui.forum.home.HomeFragment
 import com.example.froumapp.ui.startNewActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.flow.first
@@ -43,7 +40,8 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     protected var userId: String? = null
     protected var token: String? = null
     private var bottomBar: BottomNavigationView? = null
-    protected var toolBar: Toolbar? = null
+    private var toolBar: Toolbar? = null
+    protected var menuHost: MenuHost? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +53,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         if (activity is ForumActivity) {
             bottomBar = (activity as ForumActivity).findViewById(R.id.bottomNavigationView)
             toolBar = (activity as ForumActivity).findViewById(R.id.toolbar)
-            setFragmentTitle("bartelomelon")
+            menuHost = requireActivity()
             enableBackButton()
             enableBottomBar()
         }
@@ -68,7 +66,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         return binding.root
     }
 
-    fun enableBottomBar() {
+    private fun enableBottomBar() {
         bottomBar!!.visibility = View.VISIBLE
     }
 
@@ -93,24 +91,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
             findNavController().navigate(action)
         }
     }
-
-    fun setToolbarIcon(icon: Int) {
-        toolBar?.menu?.getItem(0)?.setIcon(icon)
-        toolBar?.menu?.getItem(0)?.icon?.setTint(Color.parseColor("#ffffff"))
-    }
-
-    fun setToolbarIconVisibility(visibility: Boolean) {
-        Log.d("menuItems", toolBar?.menu?.size().toString())
-    }
-
-    fun toolbarInflateMenu() {
-        toolBar?.inflateMenu(R.menu.action_bar_menu)
-    }
-
-    fun clearItemMenu() {
-        toolBar?.menu?.close()
-    }
-
     fun logout() = lifecycleScope.launch {
         userPreferences.removeUserCredentials()
         requireActivity().startNewActivity(AuthActivity::class.java)

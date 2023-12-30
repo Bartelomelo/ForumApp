@@ -1,10 +1,16 @@
 package com.example.froumapp.ui.forum.notifications
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -43,25 +49,45 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>() {
                 is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
         }
-//        toolBar?.menu?.getItem(0)?.setOnMenuItemClickListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.action_follow -> {
-//                    viewModel.deleteNotifications("Bearer $token")
-//                    viewModel.deleteNotificationResponse.observe(viewLifecycleOwner) {
-//                        when (it) {
-//                            is Resource.Success -> {
-//                                viewModel.getNotifications("Bearer $token")
-//                                binding.progressbar.visibility = View.GONE
-//                            }
-//                            is Resource.Failure -> handleApiError(it)
-//                            is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
-//                        }
-//                    }
-//                    true
-//                }
-//                else -> {false}
-//            }
-//        }
+        setupMenu()
+    }
+
+    private fun setupMenu() {
+        menuHost?.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.action_bar_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                when (menuItem.itemId) {
+                    R.id.action_delete -> {
+                        viewModel.deleteNotifications("Bearer $token")
+                        viewModel.deleteNotificationResponse.observe(viewLifecycleOwner) {
+                            when (it) {
+                                is Resource.Success -> {
+                                    viewModel.getNotifications("Bearer $token")
+                                    binding.progressbar.visibility = View.GONE
+                                    Toast.makeText(requireContext(), "Pomyślnie usunięto powiadomienia.", Toast.LENGTH_SHORT).show()
+                                }
+
+                                is Resource.Failure -> handleApiError(it)
+                                is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
+                            }
+                        }
+                    }
+                }
+                return true
+            }
+
+            override fun onPrepareMenu(menu: Menu) {
+                super.onPrepareMenu(menu)
+                menu.findItem(R.id.action_edit).isVisible = false
+                menu.findItem(R.id.action_follow).isVisible = false
+                menu.findItem(R.id.action_delete).icon?.setTint(Color.parseColor("#ffffff"))
+            }
+        }, viewLifecycleOwner)
     }
 
     private fun updateUI(notificationResponse: NotificationResponse) {
@@ -77,11 +103,6 @@ class NotificationsFragment : BaseFragment<FragmentNotificationsBinding>() {
         adapter.submitList(notificationResponse)
         binding.recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
         binding.recyclerView.addItemDecoration(MarginItemDecoration(10))
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        clearItemMenu()
     }
 
     override fun getFragmentBinding(

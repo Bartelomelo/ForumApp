@@ -1,5 +1,6 @@
 package com.example.froumapp.ui.forum.categories.forums.threads
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,12 +9,14 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.froumapp.R
 import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.responses.ThreadResponse
 import com.example.froumapp.databinding.FragmentForumThreadBinding
@@ -41,57 +44,6 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
                 args.categoryName
             )
         )
-        if (followersList.contains(userId!!)) {
-            //setToolbarIcon(com.example.froumapp.R.drawable.baseline_unfollow)
-        } else {
-            //setToolbarIcon(com.example.froumapp.R.drawable.baseline_follow)
-        }
-//        toolBar?.menu?.getItem(0)?.setOnMenuItemClickListener { it ->
-//            when (it.itemId) {
-//                com.example.froumapp.R.id.action_follow -> {
-//                    when (followersList.contains(userId!!)) {
-//                        true -> {
-//                            viewModel.followForum("Bearer $token", args.forumId, 0)
-//                            viewModel.followResponse.observe(viewLifecycleOwner) {
-//                                when (it) {
-//                                    is Resource.Success -> {
-//                                        binding.progressbar.visibility = View.GONE
-//                                        followersList.remove(userId!!)
-//                                        setToolbarIcon(com.example.froumapp.R.drawable.baseline_follow)
-//                                    }
-//
-//                                    is Resource.Failure -> handleApiError(it)
-//                                    is Resource.Loading -> binding.progressbar.visibility =
-//                                        View.VISIBLE
-//                                }
-//                            }
-//                        }
-//
-//                        false -> {
-//                            viewModel.followForum("Bearer $token", args.forumId, 1)
-//                            viewModel.followResponse.observe(viewLifecycleOwner) {
-//                                when (it) {
-//                                    is Resource.Success -> {
-//                                        binding.progressbar.visibility = View.GONE
-//                                        followersList.add(userId!!)
-//                                        setToolbarIcon(com.example.froumapp.R.drawable.baseline_unfollow)
-//                                    }
-//
-//                                    is Resource.Failure -> handleApiError(it)
-//                                    is Resource.Loading -> binding.progressbar.visibility =
-//                                        View.VISIBLE
-//                                }
-//                            }
-//                        }
-//                    }
-//                    true
-//                }
-//
-//                else -> {
-//                    false
-//                }
-//            }
-//        }
         viewModel.getThreadsByForumId(args.forumId)
         viewModel.threadResponse.observe(viewLifecycleOwner) {
             when (it) {
@@ -108,6 +60,7 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
                 is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
         }
+        setupMenu()
         binding.addButton.setOnClickListener {
             val action = ForumThreadFragmentDirections.actionForumThreadFragmentToAddThreadFragment(
                 args.forumId,
@@ -120,9 +73,34 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        clearItemMenu()
+    private fun setupMenu() {
+        menuHost?.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.action_bar_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                Toast.makeText(requireContext(), "SUPER !!! oneoneone", Toast.LENGTH_SHORT).show()
+                return true
+            }
+
+            override fun onPrepareMenu(menu: Menu) {
+                super.onPrepareMenu(menu)
+                when (followersList.contains(userId)) {
+                    true -> {
+                        menu.findItem(R.id.action_follow).setIcon(R.drawable.baseline_unfollow)
+                    }
+                    false -> {
+                        menu.findItem(R.id.action_follow).setIcon(R.drawable.baseline_follow)
+                    }
+                }
+                menu.findItem(R.id.action_follow).icon?.setTint(Color.parseColor("#ffffff"))
+                menu.findItem(R.id.action_edit).isVisible = false
+                menu.findItem(R.id.action_delete).isVisible = false
+            }
+        }, viewLifecycleOwner)
     }
 
     private fun updateUI(threadResponse: ThreadResponse) {

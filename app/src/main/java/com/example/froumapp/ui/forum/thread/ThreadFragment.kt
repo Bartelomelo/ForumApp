@@ -1,14 +1,19 @@
 package com.example.froumapp.ui.forum.thread
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -63,12 +68,15 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
                     binding.progressbar.visibility = View.GONE
                     updateUI(it.value)
                     thread = it.value
+                    setupMenu()
+
                 }
 
                 is Resource.Failure -> handleApiError(it)
                 is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
         }
+
         binding.followButton.setOnClickListener {
             viewModel.followUnfollowThread("Bearer $token", thread._id, 1)
             viewModel.followUnfollowMessage.observe(viewLifecycleOwner) {
@@ -124,20 +132,6 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
             )
             findNavController().navigate(action)
         }
-//        toolBar?.menu?.getItem(0)?.setOnMenuItemClickListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.action_follow -> {
-//                    val dialog = DialogFragment("Usuń Wątek", "Czy napewno chcesz usunąć wątek")
-//                    dialog.setTargetFragment(this, 1)
-//                    dialog.show(requireFragmentManager(), "DELETE_THREAD")
-//                    true
-//                }
-//
-//                else -> {
-//                    false
-//                }
-//            }
-//        }
     }
 
 
@@ -151,7 +145,6 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
             userId -> {
                 binding.followButton.visibility = View.GONE
                 binding.unfollowButton.visibility = View.GONE
-                setToolbarIconVisibility(true)
             }
 
             else -> {
@@ -177,6 +170,50 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
             .into(binding.threadProfilePicture)
     }
 
+    private fun setupMenu() {
+        menuHost?.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                // Add menu items here
+                menuInflater.inflate(R.menu.action_bar_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                // Handle the menu selection
+                when (menuItem.itemId) {
+                    R.id.action_delete -> {
+                        val dialog =
+                            DialogFragment("Usuń Wątek", "Czy napewno chcesz usunąć wątek?")
+                        dialog.setTargetFragment(this@ThreadFragment, 1)
+                        dialog.show(requireFragmentManager(), "DELETE_THREAD")
+                    }
+                    R.id.action_edit -> {
+                        Toast.makeText(requireContext(), "Edytuję post!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                return true
+            }
+
+            override fun onPrepareMenu(menu: Menu) {
+                super.onPrepareMenu(menu)
+                when (thread.author._id == userId!!) {
+                    true -> {
+                        menu.findItem(R.id.action_follow).isVisible = false
+                        menu.findItem(R.id.action_edit).icon?.setTint(Color.parseColor("#ffffff"))
+                        menu.findItem(R.id.action_delete).icon?.setTint(Color.parseColor("#ffffff"))
+                    }
+
+                    false -> {
+                        menu.findItem(R.id.action_delete).isVisible = false
+                        menu.findItem(R.id.action_edit).isVisible = false
+                        menu.findItem(R.id.action_follow).icon?.setTint(Color.parseColor("#ffffff"))
+                    }
+                }
+
+
+            }
+        }, viewLifecycleOwner)
+    }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -184,7 +221,7 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
 
     override fun onDialogPositiveClick(dialog: androidx.fragment.app.DialogFragment) {
         //TODO("Add thread delete")
-        Toast.makeText(requireContext(), "USUWAM", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Pomyślnie usunięto wątek", Toast.LENGTH_SHORT).show()
 
         if (args.isFromCategory) {
             val action = ThreadFragmentDirections.actionThreadFragmentToForumThreadFragment(

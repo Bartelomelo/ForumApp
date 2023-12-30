@@ -6,17 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ui.forum.ForumActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:background="@color/appColor"
-        app:titleTextColor="@color/white"
-        android:theme="@style/TintedNavigation"
-        android:tint="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/appColor"
+            android:theme="@style/TintedNavigation"
+            android:tint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -24,14 +34,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/appColor"
+        app:itemActiveIndicatorStyle="@style/Remove.Indicator"
         app:itemIconTint="@color/ic_colors"
         app:itemTextColor="@color/white"
-        app:itemActiveIndicatorStyle="@style/Remove.Indicator"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_bar_menu"/>
+        app:menu="@menu/bottom_bar_menu" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_view"
@@ -42,6 +52,6 @@
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/appbar"
         app:navGraph="@navigation/nav_graph" />
 </androidx.constraintlayout.widget.ConstraintLayout>

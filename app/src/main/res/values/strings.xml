@@ -38,4 +38,6 @@
     <string name="rank">Ranga</string>
     <string name="reputation_text">Reputacja:</string>
     <string name="image_holder">Image holder</string>
+    <string name="delete">delete</string>
+    <string name="edit">edit</string>
 </resources>
