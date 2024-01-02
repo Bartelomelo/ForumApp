@@ -1,13 +1,14 @@
 package com.example.froumapp.data.network
 
+import com.example.froumapp.data.responses.DeleteResponse
 import com.example.froumapp.data.responses.FollowResponse
 import com.example.froumapp.data.responses.MessageResponse
 import com.example.froumapp.data.responses.ThreadResponse
 import com.example.froumapp.data.responses.ThreadResponseItem
 import com.example.froumapp.data.responses.Type
-import com.example.froumapp.data.responses.UserId
 import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -44,6 +45,12 @@ interface ThreadApi {
         @Body user: Type
     ): FollowResponse
 
+    @DELETE("thread/{threadId}")
+    suspend fun deleteThread(
+        @Header("Authorization") token: String,
+        @Path("threadId") threadId: String
+    ): DeleteResponse
+
     @PUT("forum/{id}/follow/")
     suspend fun followForum(
         @Header("Authorization") token: String,
@@ -55,4 +62,6 @@ interface ThreadApi {
     suspend fun uploadThreadPicture(
         @Body body: RequestBody
     ): MessageResponse
+
+
 }

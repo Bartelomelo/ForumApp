@@ -14,4 +14,8 @@ class ThreadRepository @Inject constructor(
     suspend fun followUnfollowThread(token: String, threadId: String, user: Type) = safeApiCall {
         api.followUnfollowThread(token, threadId, user)
     }
+
+    suspend fun deleteThread(token: String, threadId: String) = safeApiCall {
+        api.deleteThread(token, threadId)
+    }
 }

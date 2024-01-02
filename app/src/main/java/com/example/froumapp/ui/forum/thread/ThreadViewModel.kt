@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.repository.ThreadRepository
+import com.example.froumapp.data.responses.DeleteResponse
 import com.example.froumapp.data.responses.FollowResponse
 import com.example.froumapp.data.responses.ThreadResponseItem
 import com.example.froumapp.data.responses.Type
-import com.example.froumapp.data.responses.UserId
 import com.example.froumapp.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,15 +20,21 @@ class ThreadViewModel @Inject constructor(
 ): BaseViewModel(repository) {
     private val _threadResponseItem: MutableLiveData<Resource<ThreadResponseItem>> = MutableLiveData()
     private val _followUnfollowMessage: MutableLiveData<Resource<FollowResponse>> = MutableLiveData()
+    private val _deleteResponse: MutableLiveData<Resource<DeleteResponse>> = MutableLiveData()
     val threadResponseItem: LiveData<Resource<ThreadResponseItem>>
         get() = _threadResponseItem
     val followUnfollowMessage: LiveData<Resource<FollowResponse>>
         get() = _followUnfollowMessage
+    val deleteResponse: LiveData<Resource<DeleteResponse>>
+        get() = _deleteResponse
     fun getThreadById(threadId: String) = viewModelScope.launch {
         _threadResponseItem.value = repository.getThreadById(threadId)
     }
     fun followUnfollowThread(token: String, threadId: String, type: Int) = viewModelScope.launch {
         val user =  Type(type)
         _followUnfollowMessage.value = repository.followUnfollowThread(token, threadId, user)
+    }
+    fun deleteThread(token: String, threadId: String) = viewModelScope.launch {
+        _deleteResponse.value = repository.deleteThread(token, threadId)
     }
 }

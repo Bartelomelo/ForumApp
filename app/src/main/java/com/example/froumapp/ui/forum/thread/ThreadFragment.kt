@@ -1,6 +1,5 @@
 package com.example.froumapp.ui.forum.thread
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
@@ -29,10 +27,6 @@ import com.example.froumapp.ui.base.BaseFragment
 import com.example.froumapp.ui.handleApiError
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.Date
 
 @AndroidEntryPoint
 class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
@@ -220,20 +214,31 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
     ): FragmentThreadBinding = FragmentThreadBinding.inflate(inflater, container, false)
 
     override fun onDialogPositiveClick(dialog: androidx.fragment.app.DialogFragment) {
-        //TODO("Add thread delete")
+        viewModel.deleteThread("Bearer $token", thread._id)
+        viewModel.deleteResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    Toast.makeText(requireContext(), "Pomyślnie usunięto wątek,", Toast.LENGTH_SHORT).show()
+                    if (args.isFromCategory) {
+                        val action = ThreadFragmentDirections.actionThreadFragmentToForumThreadFragment(
+                            args.forumId!!,
+                            args.forumName!!,
+                            args.categoryId!!,
+                            args.categoryName!!
+                        )
+                        findNavController().navigate(action)
+                    } else {
+                        val action = ThreadFragmentDirections.actionThreadFragmentToHomeFragment()
+                        findNavController().navigate(action)
+                    }
+                }
+
+                is Resource.Failure -> handleApiError(it)
+                is Resource.Loading -> {}
+            }
+        }
         Toast.makeText(requireContext(), "Pomyślnie usunięto wątek", Toast.LENGTH_SHORT).show()
 
-        if (args.isFromCategory) {
-            val action = ThreadFragmentDirections.actionThreadFragmentToForumThreadFragment(
-                args.forumId!!,
-                args.forumName!!,
-                args.categoryId!!,
-                args.categoryName!!
-            )
-            findNavController().navigate(action)
-        } else {
-            val action = ThreadFragmentDirections.actionThreadFragmentToHomeFragment()
-            findNavController().navigate(action)
-        }
+
     }
 }
