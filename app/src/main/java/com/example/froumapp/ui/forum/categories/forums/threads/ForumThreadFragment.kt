@@ -82,7 +82,30 @@ class ForumThreadFragment : BaseFragment<FragmentForumThreadBinding>() {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 // Handle the menu selection
-                Toast.makeText(requireContext(), "SUPER !!! oneoneone", Toast.LENGTH_SHORT).show()
+                when (menuItem.itemId) {
+                    R.id.action_follow -> {
+                        if (followersList.contains(userId)) {
+                            viewModel.followForum("Bearer $token", args.forumId, 0)
+                            menuItem.setIcon(R.drawable.baseline_follow)
+                            menuItem.icon?.setTint(Color.parseColor("#ffffff"))
+                            followersList.clear()
+                        } else {
+                            viewModel.followForum("Bearer $token", args.forumId, 1)
+                            menuItem.setIcon(R.drawable.baseline_unfollow)
+                            menuItem.icon?.setTint(Color.parseColor("#ffffff"))
+                            followersList.add(userId!!)
+                        }
+                        viewModel.followResponse.observe(viewLifecycleOwner) {
+                            when (it) {
+                                is Resource.Success -> {
+                                    Toast.makeText(requireContext(), "Akcja zakończona sukcesem.", Toast.LENGTH_SHORT).show()
+                                }
+                                is Resource.Failure -> handleApiError(it)
+                                is Resource.Loading -> {}
+                            }
+                        }
+                    }
+                }
                 return true
             }
 

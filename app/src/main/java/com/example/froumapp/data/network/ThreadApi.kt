@@ -6,6 +6,8 @@ import com.example.froumapp.data.responses.MessageResponse
 import com.example.froumapp.data.responses.ThreadResponse
 import com.example.froumapp.data.responses.ThreadResponseItem
 import com.example.froumapp.data.responses.Type
+import com.example.froumapp.data.responses.UpdateThread
+import com.example.froumapp.data.responses.UpdateThreadResponse
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -44,6 +46,13 @@ interface ThreadApi {
         @Path("threadId") threadId: String,
         @Body user: Type
     ): FollowResponse
+
+    @PUT("thread/{threadId}")
+    suspend fun updateThread(
+        @Header("Authorization") token: String,
+        @Path("threadId") threadId: String,
+        @Body updateBody: UpdateThread
+    ): UpdateThreadResponse
 
     @DELETE("thread/{threadId}")
     suspend fun deleteThread(

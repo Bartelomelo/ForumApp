@@ -150,6 +150,9 @@
         <action
             android:id="@+id/action_threadFragment_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_threadFragment_to_editThreadFragment"
+            app:destination="@id/editThreadFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -257,5 +260,39 @@
             android:name="threadId"
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editThreadFragment"
+        android:name="com.example.froumapp.ui.forum.thread.EditThreadFragment"
+        android:label="fragment_edit_thread"
+        tools:layout="@layout/fragment_edit_thread" >
+        <action
+            android:id="@+id/action_editThreadFragment_to_threadFragment"
+            app:destination="@id/threadFragment" />
+        <argument
+            android:name="threadId"
+            app:argType="string" />
+        <argument
+            android:name="isFromCategory"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="forumName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="forumId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="default" />
+        <argument
+            android:name="categoryName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="default" />
     </fragment>
 </navigation>

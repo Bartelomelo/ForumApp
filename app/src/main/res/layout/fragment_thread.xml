@@ -66,28 +66,6 @@
                         tools:ignore="RtlHardcoded"
                         tools:text="bartelomelo" />
 
-                    <ImageButton
-                        android:id="@+id/follow_button"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/baseline_follow"
-                        android:background="@null"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:contentDescription="follow button"
-                        app:tint="@color/appColor"/>
-
-                    <ImageButton
-                        android:id="@+id/unfollow_button"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/baseline_unfollow"
-                        android:background="@null"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:contentDescription="@string/unfollow"
-                        app:tint="@color/appColor" />
-
                     <TextView
                         android:id="@+id/add_date_text"
                         android:layout_width="wrap_content"
@@ -97,7 +75,6 @@
                         android:layout_marginEnd="5dp"
                         android:text="@string/add_date"
                         android:textAppearance="?attr/textAppearanceBodySmall"
-                        app:layout_constraintStart_toEndOf="@id/thread_author_name"
                         app:layout_constraintEnd_toStartOf="@id/add_date"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -107,9 +84,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
                         tools:text="11.11.2023"
                         android:textAppearance="?attr/textAppearanceBodySmall"
-                        app:layout_constraintStart_toEndOf="@id/add_date_text"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView

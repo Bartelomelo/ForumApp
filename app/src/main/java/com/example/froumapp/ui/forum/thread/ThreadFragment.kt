@@ -70,37 +70,6 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
                 is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
         }
-
-        binding.followButton.setOnClickListener {
-            viewModel.followUnfollowThread("Bearer $token", thread._id, 1)
-            viewModel.followUnfollowMessage.observe(viewLifecycleOwner) {
-                when (it) {
-                    is Resource.Success -> {
-                        binding.progressbar.visibility = View.GONE
-                        binding.unfollowButton.visibility = View.VISIBLE
-                        binding.followButton.visibility = View.GONE
-                    }
-
-                    is Resource.Failure -> handleApiError(it)
-                    is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
-                }
-            }
-        }
-        binding.unfollowButton.setOnClickListener {
-            viewModel.followUnfollowThread("Bearer $token", thread._id, 0)
-            viewModel.followUnfollowMessage.observe(viewLifecycleOwner) {
-                when (it) {
-                    is Resource.Success -> {
-                        binding.progressbar.visibility = View.GONE
-                        binding.followButton.visibility = View.VISIBLE
-                        binding.unfollowButton.visibility = View.GONE
-                    }
-
-                    is Resource.Failure -> handleApiError(it)
-                    is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
-                }
-            }
-        }
         binding.threadProfilePicture.setOnClickListener {
             Log.d("authorId", thread.author._id)
             val action =
@@ -135,22 +104,6 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
         binding.threadDescription.text = thread.description
         binding.views.text = thread.views.toString()
         binding.addDate.text = thread.createdAt.split("T")[0]
-        when (thread.author._id) {
-            userId -> {
-                binding.followButton.visibility = View.GONE
-                binding.unfollowButton.visibility = View.GONE
-            }
-
-            else -> {
-                if (thread.followers?.contains(userId!!) == true) {
-                    binding.followButton.visibility = View.GONE
-                    binding.unfollowButton.visibility = View.VISIBLE
-                } else {
-                    binding.followButton.visibility = View.VISIBLE
-                    binding.unfollowButton.visibility = View.GONE
-                }
-            }
-        }
         adapter = PostListAdapter {}
         binding.threadPosts.adapter = adapter
         adapter.submitList(thread.posts)
@@ -162,6 +115,7 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
             .load("http://10.0.2.2:5000/public/images/users/${thread.author.username}/${thread.author.profilePicture}")
             .error(ContextCompat.getDrawable(requireContext(), R.drawable.empty_profile_picture))
             .into(binding.threadProfilePicture)
+        //TODO("Dodać wyświetlanie zdjęć")
     }
 
     private fun setupMenu() {
@@ -180,8 +134,18 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
                         dialog.setTargetFragment(this@ThreadFragment, 1)
                         dialog.show(requireFragmentManager(), "DELETE_THREAD")
                     }
+
                     R.id.action_edit -> {
-                        Toast.makeText(requireContext(), "Edytuję post!", Toast.LENGTH_SHORT).show()
+                        val action =
+                            ThreadFragmentDirections.actionThreadFragmentToEditThreadFragment(
+                                thread._id,
+                                args.forumName,
+                                args.categoryName,
+                                args.isFromCategory,
+                                args.forumId,
+                                args.categoryId
+                            )
+                        findNavController().navigate(action)
                     }
                 }
                 return true
@@ -218,14 +182,19 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
         viewModel.deleteResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
-                    Toast.makeText(requireContext(), "Pomyślnie usunięto wątek,", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Pomyślnie usunięto wątek,",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     if (args.isFromCategory) {
-                        val action = ThreadFragmentDirections.actionThreadFragmentToForumThreadFragment(
-                            args.forumId!!,
-                            args.forumName!!,
-                            args.categoryId!!,
-                            args.categoryName!!
-                        )
+                        val action =
+                            ThreadFragmentDirections.actionThreadFragmentToForumThreadFragment(
+                                args.forumId!!,
+                                args.forumName!!,
+                                args.categoryId!!,
+                                args.categoryName!!
+                            )
                         findNavController().navigate(action)
                     } else {
                         val action = ThreadFragmentDirections.actionThreadFragmentToHomeFragment()
