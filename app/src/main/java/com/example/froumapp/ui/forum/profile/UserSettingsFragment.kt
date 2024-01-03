@@ -34,12 +34,14 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             binding.userImage.setImageURI(uri)
         }
+    private lateinit var userProfilePhotoName: String
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         disableBottomBar()
         setFragmentTitle("Ustawienia")
+        userProfilePhotoName = createProfilePhotoName()
         setNavigationDestination(
             UserSettingsFragmentDirections.actionUserSettingsFragment3ToProfileFragment(
                 "empty",
@@ -47,7 +49,7 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
             )
         )
         viewModel.getUser(userId!!)
-        viewModel.user.observe(viewLifecycleOwner, Observer {
+        viewModel.user.observe(viewLifecycleOwner) {
             when (it) {
                 is Resource.Success -> {
                     binding.progressbar.visibility = View.GONE
@@ -57,7 +59,7 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
                 is Resource.Failure -> handleApiError(it)
                 is Resource.Loading -> binding.progressbar.visibility = View.VISIBLE
             }
-        })
+        }
 
         binding.userImage.setOnClickListener {
             getContent.launch("image/*")
@@ -74,7 +76,7 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
             }
             viewModel.uploadProfilePicture(
                 binding.nickInput.text.toString(),
-                "profile_photo.jpeg",
+                userProfilePhotoName,
                 file
             )
             viewModel.messageResponse.observe(viewLifecycleOwner) {
@@ -99,7 +101,7 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
                 binding.emailInput.text.toString(),
                 binding.aboutInput.text.toString(),
                 binding.signatureInput.text.toString(),
-                userPicture = "profile_photo.jpeg"
+                userPicture = userProfilePhotoName
             )
             viewModel.updateResponse.observe(viewLifecycleOwner, Observer {
                 when (it) {
@@ -131,6 +133,10 @@ class UserSettingsFragment : BaseFragment<FragmentUserSettingsBinding>() {
             .load("http://10.0.2.2:5000/public/images/users/${user.username}/${user.profilePicture}")
             .error(ContextCompat.getDrawable(requireContext(), R.drawable.empty_profile_picture))
             .into(binding.userImage)
+    }
+
+    private fun createProfilePhotoName(): String {
+        return "profile_photo_${(0..10000).random()}.jpeg"
     }
 
     override fun getFragmentBinding(

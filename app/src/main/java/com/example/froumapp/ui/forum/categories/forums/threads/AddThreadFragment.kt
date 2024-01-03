@@ -78,7 +78,7 @@ class AddThreadFragment : BaseFragment<FragmentAddThreadBinding>() {
                     }
                     viewModel.uploadThreadPicture(
                         createResponse.value._id,
-                        "thread_photo.jpeg",
+                        createImageName(),
                         file
                     )
                     viewModel.messageResponse.observe(viewLifecycleOwner) {
@@ -103,6 +103,10 @@ class AddThreadFragment : BaseFragment<FragmentAddThreadBinding>() {
             }
         }
 
+    }
+
+    private fun createImageName(): String {
+        return "IMG_${(0..100000).random()}.jpeg"
     }
 
     override fun getFragmentBinding(
