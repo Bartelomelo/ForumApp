@@ -31,7 +31,9 @@ interface ThreadApi {
         @Field("forumId") forumId: String,
         @Field("title") threadTitle: String,
         @Field("description") threadDescription: String,
-        @Field("authorId") userId: String
+        @Field("authorId") userId: String,
+        @Field("images") images: List<String>
+
     ): ThreadResponseItem
 
     @GET("thread/{threadId}")

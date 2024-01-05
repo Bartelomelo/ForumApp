@@ -8,6 +8,7 @@ data class ThreadResponseItem(
     val description: String,
     val followers: List<Any>?,
     val forumId: ForumId,
+    val images: List<String>?,
     val posts: List<Post>?,
     val title: String,
     val updatedAt: String,

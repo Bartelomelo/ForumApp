@@ -12,8 +12,8 @@ class ThreadForumRepository @Inject constructor(
         api.getThreadsByForumId(forumId)
     }
 
-    suspend fun addThread(token: String, forumId: String, threadTitle: String, threadDescription: String, userId: String) = safeApiCall {
-        api.addThread(token, forumId, threadTitle, threadDescription, userId)
+    suspend fun addThread(token: String, forumId: String, threadTitle: String, threadDescription: String, userId: String, images: List<String>) = safeApiCall {
+        api.addThread(token, forumId, threadTitle, threadDescription, userId, images)
     }
 
     suspend fun followForum(token: String, id: String, type: Type) = safeApiCall {

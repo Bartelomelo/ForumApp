@@ -21,6 +21,7 @@ import com.example.froumapp.data.network.Resource
 import com.example.froumapp.data.responses.ThreadResponse
 import com.example.froumapp.databinding.FragmentForumThreadBinding
 import com.example.froumapp.ui.MarginItemDecoration
+import com.example.froumapp.ui.adapters.ThreadImageAdapter
 import com.example.froumapp.ui.adapters.ThreadListAdapter
 import com.example.froumapp.ui.base.BaseFragment
 import com.example.froumapp.ui.handleApiError

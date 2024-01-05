@@ -23,6 +23,7 @@ import com.example.froumapp.databinding.FragmentThreadBinding
 import com.example.froumapp.ui.DialogFragment
 import com.example.froumapp.ui.MarginItemDecoration
 import com.example.froumapp.ui.adapters.PostListAdapter
+import com.example.froumapp.ui.adapters.ThreadImageAdapter
 import com.example.froumapp.ui.base.BaseFragment
 import com.example.froumapp.ui.handleApiError
 import com.squareup.picasso.Picasso
@@ -35,6 +36,7 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
     private val viewModel: ThreadViewModel by viewModels()
     private val args: ThreadFragmentArgs by navArgs()
     private lateinit var adapter: PostListAdapter
+    private lateinit var imagesAdapter: ThreadImageAdapter
     private lateinit var thread: ThreadResponseItem
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -104,9 +106,16 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
         binding.threadDescription.text = thread.description
         binding.views.text = thread.views.toString()
         binding.addDate.text = thread.createdAt.split("T")[0]
+        imagesAdapter = ThreadImageAdapter(thread._id) {}
         adapter = PostListAdapter {}
+        binding.threadImages.adapter = imagesAdapter
         binding.threadPosts.adapter = adapter
+        imagesAdapter.submitList(thread.images)
         adapter.submitList(thread.posts)
+        binding.threadImages.layoutManager = LinearLayoutManager(this.requireContext())
+        binding.threadImages.addItemDecoration(
+            MarginItemDecoration(15)
+        )
         binding.threadPosts.layoutManager = LinearLayoutManager(this.requireContext())
         binding.threadPosts.addItemDecoration(
             MarginItemDecoration(25)
@@ -115,7 +124,6 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
             .load("http://10.0.2.2:5000/public/images/users/${thread.author.username}/${thread.author.profilePicture}")
             .error(ContextCompat.getDrawable(requireContext(), R.drawable.empty_profile_picture))
             .into(binding.threadProfilePicture)
-        //TODO("Dodać wyświetlanie zdjęć")
     }
 
     private fun setupMenu() {

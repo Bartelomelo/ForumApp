@@ -82,6 +82,15 @@
             app:layout_constraintStart_toStartOf="@id/thread_description_layout"
             android:contentDescription="@string/image_holder" />
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_holder_original_size"
+            android:layout_width="300dp"
+            android:layout_height="250dp"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/add_button"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/image_holder" />
+
         <Button
             android:id="@+id/add_button"
             android:layout_width="125dp"

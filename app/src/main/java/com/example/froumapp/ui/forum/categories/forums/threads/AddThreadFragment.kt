@@ -28,7 +28,9 @@ class AddThreadFragment : BaseFragment<FragmentAddThreadBinding>() {
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             binding.imageHolder.setImageURI(uri)
+            binding.imageHolderOriginalSize.setImageURI(uri)
         }
+    private val imagesList: MutableList<String> = mutableListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,11 +52,13 @@ class AddThreadFragment : BaseFragment<FragmentAddThreadBinding>() {
                 args.forumId,
                 binding.threadTitleInput.text.toString(),
                 binding.threadDescriptionInput.text.toString(),
-                userId!!
+                userId!!,
+                imagesList
             )
         }
         binding.addPhoto.setOnClickListener {
             getContent.launch("image/*")
+            imagesList.add(createImageName())
         }
         viewModel.createdThreadResponse.observe(viewLifecycleOwner) { createResponse ->
             when (createResponse) {
@@ -72,13 +76,13 @@ class AddThreadFragment : BaseFragment<FragmentAddThreadBinding>() {
                     file.createNewFile()
                     file.outputStream().use {
                         val bos = ByteArrayOutputStream()
-                        binding.imageHolder.drawToBitmap()
+                        binding.imageHolderOriginalSize.drawToBitmap()
                             .compress(Bitmap.CompressFormat.PNG, 0, bos)
                         ByteArrayInputStream(bos.toByteArray()).copyTo(it)
                     }
                     viewModel.uploadThreadPicture(
                         createResponse.value._id,
-                        createImageName(),
+                        imagesList[0],
                         file
                     )
                     viewModel.messageResponse.observe(viewLifecycleOwner) {

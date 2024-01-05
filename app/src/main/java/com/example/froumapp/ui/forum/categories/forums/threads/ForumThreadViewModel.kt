@@ -41,8 +41,8 @@ class ForumThreadViewModel @Inject constructor(
         _threadResponse.value = repository.getThreadsByForumId(forumId)
     }
 
-    fun addThread(token: String, forumId: String, threadTitle: String, threadDescription: String, userId: String) = viewModelScope.launch{
-        _createdThreadResponse.value = repository.addThread(token, forumId, threadTitle, threadDescription, userId)
+    fun addThread(token: String, forumId: String, threadTitle: String, threadDescription: String, userId: String, images: List<String>) = viewModelScope.launch{
+        _createdThreadResponse.value = repository.addThread(token, forumId, threadTitle, threadDescription, userId, images)
     }
 
     fun followForum(token: String, forumId: String, type: Int) = viewModelScope.launch {
