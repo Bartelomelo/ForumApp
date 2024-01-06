@@ -21,7 +21,6 @@ import com.example.froumapp.ui.forum.notifications.NotificationsViewModel
 import com.example.froumapp.ui.forum.profile.ProfileViewModel
 import com.example.froumapp.ui.forum.thread.ThreadViewModel
 import com.example.froumapp.ui.forum.thread.post.PostViewModel
-import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory(
@@ -32,7 +31,7 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel(repository as AuthRepository) as T
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> ProfileViewModel(repository as ProfileRepository) as T
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(repository as HomeRepository) as T
-            modelClass.isAssignableFrom(ThreadViewModel::class.java) -> ThreadViewModel(repository as ThreadRepository) as T
+            modelClass.isAssignableFrom(ThreadViewModel::class.java) -> ThreadViewModel(repository = repository as ThreadRepository, postRepository = repository as PostRepository) as T
             modelClass.isAssignableFrom(PostViewModel::class.java) -> PostViewModel(repository as PostRepository) as T
             modelClass.isAssignableFrom(CategoriesViewModel::class.java) -> CategoriesViewModel(repository as CategoryRepository) as T
             modelClass.isAssignableFrom(ForumViewModel::class.java) -> ForumViewModel(repository as ForumRepository) as T

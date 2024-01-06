@@ -107,7 +107,7 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
         binding.views.text = thread.views.toString()
         binding.addDate.text = thread.createdAt.split("T")[0]
         imagesAdapter = ThreadImageAdapter(thread._id) {}
-        adapter = PostListAdapter {}
+        adapter = PostListAdapter(token!!, userId!!, viewModel){}
         binding.threadImages.adapter = imagesAdapter
         binding.threadPosts.adapter = adapter
         imagesAdapter.submitList(thread.images)
