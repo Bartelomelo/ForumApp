@@ -27,7 +27,6 @@ class ThreadImageAdapter(private val threadId: String, private val onItemClicked
         val current = getItem(position)
         val threadImage = holder.itemView.findViewById<ImageView>(R.id.thread_image)
         Picasso.with(holder.itemView.context).load("http://10.0.2.2:5000/public/images/threads/${threadId}/${current}")
-            .error(ContextCompat.getDrawable(holder.itemView.context, R.drawable.empty_profile_picture))
             .into(threadImage)
         holder.itemView.setOnClickListener {
             onItemClicked()

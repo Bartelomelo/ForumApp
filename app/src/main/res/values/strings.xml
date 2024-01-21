@@ -44,4 +44,6 @@
     <string name="podaj_nowy_tytu">Podaj nowy tytuł</string>
     <string name="type_new_title">Podaj nowy tytuł</string>
     <string name="type_new_thread_desc">Podaj nowy opis wątku</string>
+    <string name="upvote">upvote</string>
+    <string name="downvote">downvote</string>
 </resources>

@@ -6,7 +6,7 @@ data class ThreadResponseItem(
     val author: Author,
     val createdAt: String,
     val description: String,
-    val followers: List<Any>?,
+    val followers: List<String>?,
     val forumId: ForumId,
     val images: List<String>?,
     val posts: List<Post>?,

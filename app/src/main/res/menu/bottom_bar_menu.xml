@@ -10,10 +10,6 @@
         android:icon="@drawable/baseline_categories"
         android:title="Categories" />
     <item
-        android:id="@+id/messagesFragment"
-        android:icon="@drawable/ic_message"
-        android:title="Messages" />
-    <item
         android:id="@+id/notificationsFragment"
         android:icon="@drawable/ic_notifications"
         android:title="Notifications" />

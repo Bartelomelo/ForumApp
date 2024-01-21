@@ -22,6 +22,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>() {
     private val args: PostFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         disableBottomBar()
         setFragmentTitle("Add Post")
         setNavigationDestination(
@@ -34,7 +35,6 @@ class PostFragment : BaseFragment<FragmentPostBinding>() {
                 args.categoryName
             )
         )
-        super.onViewCreated(view, savedInstanceState)
         binding.addButton.setOnClickListener {
             viewModel.addPost(
                 "Bearer $token",

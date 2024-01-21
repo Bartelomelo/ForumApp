@@ -38,6 +38,7 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
     private lateinit var adapter: PostListAdapter
     private lateinit var imagesAdapter: ThreadImageAdapter
     private lateinit var thread: ThreadResponseItem
+    private var followersList: MutableList<String> = mutableListOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,6 +65,7 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
                     binding.progressbar.visibility = View.GONE
                     updateUI(it.value)
                     thread = it.value
+                    followersList = it.value.followers?.toMutableList() ?: mutableListOf()
                     setupMenu()
 
                 }
@@ -136,6 +138,28 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 // Handle the menu selection
                 when (menuItem.itemId) {
+                    R.id.action_follow -> {
+                        if (followersList.contains(userId)) {
+                            viewModel.followUnfollowThread("Bearer $token", args.thradId, 0)
+                            menuItem.setIcon(R.drawable.baseline_follow)
+                            menuItem.icon?.setTint(Color.parseColor("#ffffff"))
+                            followersList.clear()
+                        } else {
+                            viewModel.followUnfollowThread("Bearer $token", args.thradId, 1)
+                            menuItem.setIcon(R.drawable.baseline_unfollow)
+                            menuItem.icon?.setTint(Color.parseColor("#ffffff"))
+                            followersList.add(userId!!)
+                        }
+                        viewModel.followUnfollowMessage.observe(viewLifecycleOwner) {
+                            when (it) {
+                                is Resource.Success -> {
+                                    Toast.makeText(requireContext(), "Akcja zakończona sukcesem.", Toast.LENGTH_SHORT).show()
+                                }
+                                is Resource.Failure -> handleApiError(it)
+                                is Resource.Loading -> {}
+                            }
+                        }
+                    }
                     R.id.action_delete -> {
                         val dialog =
                             DialogFragment("Usuń Wątek", "Czy napewno chcesz usunąć wątek?")
@@ -161,6 +185,14 @@ class ThreadFragment : BaseFragment<FragmentThreadBinding>(),
 
             override fun onPrepareMenu(menu: Menu) {
                 super.onPrepareMenu(menu)
+                when (followersList.contains(userId)) {
+                    true -> {
+                        menu.findItem(R.id.action_follow).setIcon(R.drawable.baseline_unfollow)
+                    }
+                    false -> {
+                        menu.findItem(R.id.action_follow).setIcon(R.drawable.baseline_follow)
+                    }
+                }
                 when (thread.author._id == userId!!) {
                     true -> {
                         menu.findItem(R.id.action_follow).isVisible = false
